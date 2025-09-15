@@ -1,0 +1,19 @@
+# Copy to config/settings.yaml and edit for your environment
+provider: "local"  # options: local | openai | azure_openai
+log_level: "INFO"
+redaction:
+  redact_domains: true
+  redact_upns: true
+  redact_tokens: true
+synthetic_data:
+  path: "synthetic_data"
+connectors:
+  graph:
+    tenant_id: "00000000-0000-0000-0000-000000000000"
+    client_id: "00000000-0000-0000-0000-000000000000"
+    authority: "https://login.microsoftonline.com/{tenant_id}"
+    scopes:
+      - "https://graph.microsoft.com/.default"
+  kusto:
+    cluster: "https://example.kusto.windows.net"
+    database: "ExampleDB"
