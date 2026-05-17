@@ -37,7 +37,10 @@ Test it:
 ```bash
 curl -s http://127.0.0.1:8080/healthz
 curl -s -X POST http://127.0.0.1:8080/v1/ask -H "Content-Type: application/json" -d '{"question":"List permanent vs eligible role assignments and recommend least-privilege fixes."}' | jq .
+curl -s -X POST http://127.0.0.1:8080/chat -H "Content-Type: application/json" -d '{"message":"Summarize top ICAM risk themes this week."}' | jq .
 ```
+
+`/chat` calls Anthropic on Foundry when `ANTHROPIC_FOUNDRY_ENDPOINT` is set (optionally set `ANTHROPIC_FOUNDRY_API_KEY` and `ANTHROPIC_FOUNDRY_MODEL`).
 
 ---
 
