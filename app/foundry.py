@@ -32,8 +32,13 @@ def chat_completion(message: str, system: str | None = None) -> Dict[str, Any]:
     if system:
         body["system"] = system
 
-    response = httpx.post(endpoint, headers=headers, json=body, timeout=30.0)
-    response.raise_for_status()
+    try:
+        response = httpx.post(endpoint, headers=headers, json=body, timeout=30.0)
+        response.raise_for_status()
+    except httpx.HTTPStatusError as exc:
+        raise RuntimeError(f"Foundry request failed: status={exc.response.status_code} body={exc.response.text}") from exc
+    except httpx.HTTPError as exc:
+        raise RuntimeError(f"Foundry request failed: {exc}") from exc
     payload = response.json()
     return {
         "model": payload.get("model", model),
