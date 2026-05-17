@@ -3,6 +3,9 @@ from typing import Any, Dict
 
 import httpx
 
+DEFAULT_MAX_TOKENS = 512
+DEFAULT_TIMEOUT_SECONDS = 30.0
+
 
 def _extract_text(payload: Dict[str, Any]) -> str:
     content = payload.get("content", [])
@@ -19,6 +22,8 @@ def chat_completion(message: str, system: str | None = None) -> Dict[str, Any]:
 
     api_key = os.getenv("ANTHROPIC_FOUNDRY_API_KEY")
     model = os.getenv("ANTHROPIC_FOUNDRY_MODEL", "claude-sonnet-4-5")
+    max_tokens = int(os.getenv("ANTHROPIC_FOUNDRY_MAX_TOKENS", str(DEFAULT_MAX_TOKENS)))
+    timeout_seconds = float(os.getenv("ANTHROPIC_FOUNDRY_TIMEOUT_SECONDS", str(DEFAULT_TIMEOUT_SECONDS)))
 
     headers: Dict[str, str] = {"Content-Type": "application/json"}
     if api_key:
@@ -26,14 +31,14 @@ def chat_completion(message: str, system: str | None = None) -> Dict[str, Any]:
 
     body: Dict[str, Any] = {
         "model": model,
-        "max_tokens": 512,
+        "max_tokens": max_tokens,
         "messages": [{"role": "user", "content": message}],
     }
     if system:
         body["system"] = system
 
     try:
-        response = httpx.post(endpoint, headers=headers, json=body, timeout=30.0)
+        response = httpx.post(endpoint, headers=headers, json=body, timeout=timeout_seconds)
         response.raise_for_status()
     except httpx.HTTPStatusError as exc:
         raise RuntimeError(f"Foundry request failed: status={exc.response.status_code} body={exc.response.text}") from exc
