@@ -14,4 +14,3 @@ build/
 *.egg
 .DS_Store
 nohup.out
-evals/results_cache.json

@@ -1,0 +1,889 @@
+{
+  "generated_at": "2026-05-25T16:33:22.343979+00:00",
+  "models": [
+    "claude-haiku-4-5",
+    "claude-sonnet-4-5",
+    "claude-opus-4-7"
+  ],
+  "summary": [
+    {
+      "model": "claude-haiku-4-5",
+      "pass_rate": 73.3,
+      "avg_latency_ms": 2285.3,
+      "total_cost_usd": 0.1088,
+      "cached": true
+    },
+    {
+      "model": "claude-sonnet-4-5",
+      "pass_rate": 93.3,
+      "avg_latency_ms": 4285.3,
+      "total_cost_usd": 0.4214,
+      "cached": true
+    },
+    {
+      "model": "claude-opus-4-7",
+      "pass_rate": 100.0,
+      "avg_latency_ms": 7385.3,
+      "total_cost_usd": 2.0883,
+      "cached": true
+    }
+  ],
+  "results": [
+    {
+      "id": "eval_001",
+      "prompt": "Which users have Global Administrator access without PIM enabled?",
+      "model": "claude-haiku-4-5",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "privilege_audit",
+      "passed": true,
+      "latency_ms": 2028,
+      "cost_usd": 0.005336,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_001. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2025,
+        "output": 929,
+        "cost_usd": 0.005336
+      }
+    },
+    {
+      "id": "eval_002",
+      "prompt": "Identify all users with SMS-only MFA and explain the specific risk to mission operations.",
+      "model": "claude-haiku-4-5",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "mfa_risk",
+      "passed": true,
+      "latency_ms": 2363,
+      "cost_usd": 0.004456,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_002. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2250,
+        "output": 664,
+        "cost_usd": 0.004456
+      }
+    },
+    {
+      "id": "eval_003",
+      "prompt": "Analyze Tamara Osei's access profile and identify any anomalies from her recent team transfer.",
+      "model": "claude-haiku-4-5",
+      "difficulty": "hard",
+      "mission_relevance": "high",
+      "category": "stale_access",
+      "passed": false,
+      "latency_ms": 2085,
+      "cost_usd": 0.010587,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_003. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3504,
+        "output": 1946,
+        "cost_usd": 0.010587
+      }
+    },
+    {
+      "id": "eval_004",
+      "prompt": "Which service accounts lack designated owners and what is the blast radius if compromised?",
+      "model": "claude-haiku-4-5",
+      "difficulty": "medium",
+      "mission_relevance": "high",
+      "category": "service_accounts",
+      "passed": true,
+      "latency_ms": 1978,
+      "cost_usd": 0.00657,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_004. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3132,
+        "output": 1016,
+        "cost_usd": 0.00657
+      }
+    },
+    {
+      "id": "eval_005",
+      "prompt": "List all users with administrative access in both Azure Gov and AWS GovCloud.",
+      "model": "claude-haiku-4-5",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "cross_cloud",
+      "passed": true,
+      "latency_ms": 1861,
+      "cost_usd": 0.00432,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_005. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2095,
+        "output": 661,
+        "cost_usd": 0.00432
+      }
+    },
+    {
+      "id": "eval_006",
+      "prompt": "Identify the credential sharing issue and its compliance implications.",
+      "model": "claude-haiku-4-5",
+      "difficulty": "medium",
+      "mission_relevance": "high",
+      "category": "credential_sharing",
+      "passed": true,
+      "latency_ms": 2276,
+      "cost_usd": 0.007806,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_006. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3217,
+        "output": 1308,
+        "cost_usd": 0.007806
+      }
+    },
+    {
+      "id": "eval_007",
+      "prompt": "Identify any accounts that should have been deprovisioned but remain active.",
+      "model": "claude-haiku-4-5",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "offboarding",
+      "passed": true,
+      "latency_ms": 1854,
+      "cost_usd": 0.004663,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_007. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2574,
+        "output": 651,
+        "cost_usd": 0.004663
+      }
+    },
+    {
+      "id": "eval_008",
+      "prompt": "Prioritize the top 5 identity remediation actions by risk to mission operations.",
+      "model": "claude-haiku-4-5",
+      "difficulty": "medium",
+      "mission_relevance": "high",
+      "category": "remediation",
+      "passed": true,
+      "latency_ms": 2659,
+      "cost_usd": 0.007256,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_008. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2925,
+        "output": 1229,
+        "cost_usd": 0.007256
+      }
+    },
+    {
+      "id": "eval_009",
+      "prompt": "Map the identity risks to NIST 800-53 controls and identify which controls are failing.",
+      "model": "claude-haiku-4-5",
+      "difficulty": "hard",
+      "mission_relevance": "medium",
+      "category": "compliance",
+      "passed": false,
+      "latency_ms": 2369,
+      "cost_usd": 0.010677,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_009. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3406,
+        "output": 1988,
+        "cost_usd": 0.010677
+      }
+    },
+    {
+      "id": "eval_010",
+      "prompt": "What is the aggregate risk score for Orion Federal Analytics Agency and how does it compare to federal baseline?",
+      "model": "claude-haiku-4-5",
+      "difficulty": "medium",
+      "mission_relevance": "medium",
+      "category": "risk_aggregate",
+      "passed": true,
+      "latency_ms": 2126,
+      "cost_usd": 0.007202,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_010. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3132,
+        "output": 1174,
+        "cost_usd": 0.007202
+      }
+    },
+    {
+      "id": "eval_011",
+      "prompt": "Which users have permanent role assignments that should be converted to PIM-eligible?",
+      "model": "claude-haiku-4-5",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "pim",
+      "passed": true,
+      "latency_ms": 2369,
+      "cost_usd": 0.004367,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_011. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2159,
+        "output": 660,
+        "cost_usd": 0.004367
+      }
+    },
+    {
+      "id": "eval_012",
+      "prompt": "Explain the specific mission risk posed by Diana Reyes' current access configuration.",
+      "model": "claude-haiku-4-5",
+      "difficulty": "hard",
+      "mission_relevance": "high",
+      "category": "persona_analysis",
+      "passed": false,
+      "latency_ms": 2489,
+      "cost_usd": 0.009391,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_012. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3504,
+        "output": 1647,
+        "cost_usd": 0.009391
+      }
+    },
+    {
+      "id": "eval_013",
+      "prompt": "What remediation steps are needed for the svc-fusion-ingest service account?",
+      "model": "claude-haiku-4-5",
+      "difficulty": "medium",
+      "mission_relevance": "medium",
+      "category": "service_accounts",
+      "passed": true,
+      "latency_ms": 2578,
+      "cost_usd": 0.006971,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_013. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2799,
+        "output": 1183,
+        "cost_usd": 0.006971
+      }
+    },
+    {
+      "id": "eval_014",
+      "prompt": "Generate a 30/60/90 day remediation roadmap for Orion Federal's identity program.",
+      "model": "claude-haiku-4-5",
+      "difficulty": "hard",
+      "mission_relevance": "high",
+      "category": "roadmap",
+      "passed": false,
+      "latency_ms": 2504,
+      "cost_usd": 0.009424,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_014. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3670,
+        "output": 1622,
+        "cost_usd": 0.009424
+      }
+    },
+    {
+      "id": "eval_015",
+      "prompt": "Which data scientists have access beyond what their current role requires, and what is the overprivilege gap?",
+      "model": "claude-haiku-4-5",
+      "difficulty": "hard",
+      "mission_relevance": "high",
+      "category": "overprivilege",
+      "passed": true,
+      "latency_ms": 2740,
+      "cost_usd": 0.009811,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-haiku-4-5 on eval_015. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3949,
+        "output": 1663,
+        "cost_usd": 0.009811
+      }
+    },
+    {
+      "id": "eval_001",
+      "prompt": "Which users have Global Administrator access without PIM enabled?",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "privilege_audit",
+      "passed": true,
+      "latency_ms": 4750,
+      "cost_usd": 0.01872,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_001. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2080,
+        "output": 832,
+        "cost_usd": 0.01872
+      }
+    },
+    {
+      "id": "eval_002",
+      "prompt": "Identify all users with SMS-only MFA and explain the specific risk to mission operations.",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "mfa_risk",
+      "passed": true,
+      "latency_ms": 4400,
+      "cost_usd": 0.019785,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_002. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2370,
+        "output": 845,
+        "cost_usd": 0.019785
+      }
+    },
+    {
+      "id": "eval_003",
+      "prompt": "Analyze Tamara Osei's access profile and identify any anomalies from her recent team transfer.",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "hard",
+      "mission_relevance": "high",
+      "category": "stale_access",
+      "passed": true,
+      "latency_ms": 3987,
+      "cost_usd": 0.034758,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_003. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3471,
+        "output": 1623,
+        "cost_usd": 0.034758
+      }
+    },
+    {
+      "id": "eval_004",
+      "prompt": "Which service accounts lack designated owners and what is the blast radius if compromised?",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "medium",
+      "mission_relevance": "high",
+      "category": "service_accounts",
+      "passed": true,
+      "latency_ms": 4133,
+      "cost_usd": 0.024588,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_004. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2996,
+        "output": 1040,
+        "cost_usd": 0.024588
+      }
+    },
+    {
+      "id": "eval_005",
+      "prompt": "List all users with administrative access in both Azure Gov and AWS GovCloud.",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "cross_cloud",
+      "passed": true,
+      "latency_ms": 4153,
+      "cost_usd": 0.017469,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_005. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2103,
+        "output": 744,
+        "cost_usd": 0.017469
+      }
+    },
+    {
+      "id": "eval_006",
+      "prompt": "Identify the credential sharing issue and its compliance implications.",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "medium",
+      "mission_relevance": "high",
+      "category": "credential_sharing",
+      "passed": true,
+      "latency_ms": 4338,
+      "cost_usd": 0.029367,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_006. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3164,
+        "output": 1325,
+        "cost_usd": 0.029367
+      }
+    },
+    {
+      "id": "eval_007",
+      "prompt": "Identify any accounts that should have been deprovisioned but remain active.",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "offboarding",
+      "passed": true,
+      "latency_ms": 4694,
+      "cost_usd": 0.017583,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_007. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2166,
+        "output": 739,
+        "cost_usd": 0.017583
+      }
+    },
+    {
+      "id": "eval_008",
+      "prompt": "Prioritize the top 5 identity remediation actions by risk to mission operations.",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "medium",
+      "mission_relevance": "high",
+      "category": "remediation",
+      "passed": true,
+      "latency_ms": 4655,
+      "cost_usd": 0.028887,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_008. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2914,
+        "output": 1343,
+        "cost_usd": 0.028887
+      }
+    },
+    {
+      "id": "eval_009",
+      "prompt": "Map the identity risks to NIST 800-53 controls and identify which controls are failing.",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "hard",
+      "mission_relevance": "medium",
+      "category": "compliance",
+      "passed": true,
+      "latency_ms": 4293,
+      "cost_usd": 0.039084,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_009. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3473,
+        "output": 1911,
+        "cost_usd": 0.039084
+      }
+    },
+    {
+      "id": "eval_010",
+      "prompt": "What is the aggregate risk score for Orion Federal Analytics Agency and how does it compare to federal baseline?",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "medium",
+      "mission_relevance": "medium",
+      "category": "risk_aggregate",
+      "passed": true,
+      "latency_ms": 3900,
+      "cost_usd": 0.030333,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_010. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3246,
+        "output": 1373,
+        "cost_usd": 0.030333
+      }
+    },
+    {
+      "id": "eval_011",
+      "prompt": "Which users have permanent role assignments that should be converted to PIM-eligible?",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "pim",
+      "passed": true,
+      "latency_ms": 4202,
+      "cost_usd": 0.018291,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_011. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2167,
+        "output": 786,
+        "cost_usd": 0.018291
+      }
+    },
+    {
+      "id": "eval_012",
+      "prompt": "Explain the specific mission risk posed by Diana Reyes' current access configuration.",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "hard",
+      "mission_relevance": "high",
+      "category": "persona_analysis",
+      "passed": true,
+      "latency_ms": 4754,
+      "cost_usd": 0.039933,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_012. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3676,
+        "output": 1927,
+        "cost_usd": 0.039933
+      }
+    },
+    {
+      "id": "eval_013",
+      "prompt": "What remediation steps are needed for the svc-fusion-ingest service account?",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "medium",
+      "mission_relevance": "medium",
+      "category": "service_accounts",
+      "passed": true,
+      "latency_ms": 4099,
+      "cost_usd": 0.029991,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_013. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3032,
+        "output": 1393,
+        "cost_usd": 0.029991
+      }
+    },
+    {
+      "id": "eval_014",
+      "prompt": "Generate a 30/60/90 day remediation roadmap for Orion Federal's identity program.",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "hard",
+      "mission_relevance": "high",
+      "category": "roadmap",
+      "passed": false,
+      "latency_ms": 3429,
+      "cost_usd": 0.035142,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_014. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3634,
+        "output": 1616,
+        "cost_usd": 0.035142
+      }
+    },
+    {
+      "id": "eval_015",
+      "prompt": "Which data scientists have access beyond what their current role requires, and what is the overprivilege gap?",
+      "model": "claude-sonnet-4-5",
+      "difficulty": "hard",
+      "mission_relevance": "high",
+      "category": "overprivilege",
+      "passed": true,
+      "latency_ms": 4492,
+      "cost_usd": 0.037485,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-sonnet-4-5 on eval_015. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3810,
+        "output": 1737,
+        "cost_usd": 0.037485
+      }
+    },
+    {
+      "id": "eval_001",
+      "prompt": "Which users have Global Administrator access without PIM enabled?",
+      "model": "claude-opus-4-7",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "privilege_audit",
+      "passed": true,
+      "latency_ms": 5871,
+      "cost_usd": 0.09624,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_001. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2216,
+        "output": 840,
+        "cost_usd": 0.09624
+      }
+    },
+    {
+      "id": "eval_002",
+      "prompt": "Identify all users with SMS-only MFA and explain the specific risk to mission operations.",
+      "model": "claude-opus-4-7",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "mfa_risk",
+      "passed": true,
+      "latency_ms": 9189,
+      "cost_usd": 0.08418,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_002. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2322,
+        "output": 658,
+        "cost_usd": 0.08418
+      }
+    },
+    {
+      "id": "eval_003",
+      "prompt": "Analyze Tamara Osei's access profile and identify any anomalies from her recent team transfer.",
+      "model": "claude-opus-4-7",
+      "difficulty": "hard",
+      "mission_relevance": "high",
+      "category": "stale_access",
+      "passed": true,
+      "latency_ms": 8284,
+      "cost_usd": 0.193815,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_003. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3911,
+        "output": 1802,
+        "cost_usd": 0.193815
+      }
+    },
+    {
+      "id": "eval_004",
+      "prompt": "Which service accounts lack designated owners and what is the blast radius if compromised?",
+      "model": "claude-opus-4-7",
+      "difficulty": "medium",
+      "mission_relevance": "high",
+      "category": "service_accounts",
+      "passed": true,
+      "latency_ms": 8233,
+      "cost_usd": 0.12801,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_004. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3169,
+        "output": 1073,
+        "cost_usd": 0.12801
+      }
+    },
+    {
+      "id": "eval_005",
+      "prompt": "List all users with administrative access in both Azure Gov and AWS GovCloud.",
+      "model": "claude-opus-4-7",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "cross_cloud",
+      "passed": true,
+      "latency_ms": 6684,
+      "cost_usd": 0.08283,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_005. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2142,
+        "output": 676,
+        "cost_usd": 0.08283
+      }
+    },
+    {
+      "id": "eval_006",
+      "prompt": "Identify the credential sharing issue and its compliance implications.",
+      "model": "claude-opus-4-7",
+      "difficulty": "medium",
+      "mission_relevance": "high",
+      "category": "credential_sharing",
+      "passed": true,
+      "latency_ms": 8651,
+      "cost_usd": 0.144735,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_006. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3274,
+        "output": 1275,
+        "cost_usd": 0.144735
+      }
+    },
+    {
+      "id": "eval_007",
+      "prompt": "Identify any accounts that should have been deprovisioned but remain active.",
+      "model": "claude-opus-4-7",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "offboarding",
+      "passed": true,
+      "latency_ms": 6676,
+      "cost_usd": 0.096645,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_007. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2598,
+        "output": 769,
+        "cost_usd": 0.096645
+      }
+    },
+    {
+      "id": "eval_008",
+      "prompt": "Prioritize the top 5 identity remediation actions by risk to mission operations.",
+      "model": "claude-opus-4-7",
+      "difficulty": "medium",
+      "mission_relevance": "high",
+      "category": "remediation",
+      "passed": true,
+      "latency_ms": 7990,
+      "cost_usd": 0.135495,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_008. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3108,
+        "output": 1185,
+        "cost_usd": 0.135495
+      }
+    },
+    {
+      "id": "eval_009",
+      "prompt": "Map the identity risks to NIST 800-53 controls and identify which controls are failing.",
+      "model": "claude-opus-4-7",
+      "difficulty": "hard",
+      "mission_relevance": "medium",
+      "category": "compliance",
+      "passed": true,
+      "latency_ms": 6498,
+      "cost_usd": 0.192615,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_009. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3541,
+        "output": 1860,
+        "cost_usd": 0.192615
+      }
+    },
+    {
+      "id": "eval_010",
+      "prompt": "What is the aggregate risk score for Orion Federal Analytics Agency and how does it compare to federal baseline?",
+      "model": "claude-opus-4-7",
+      "difficulty": "medium",
+      "mission_relevance": "medium",
+      "category": "risk_aggregate",
+      "passed": true,
+      "latency_ms": 7621,
+      "cost_usd": 0.145845,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_010. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2793,
+        "output": 1386,
+        "cost_usd": 0.145845
+      }
+    },
+    {
+      "id": "eval_011",
+      "prompt": "Which users have permanent role assignments that should be converted to PIM-eligible?",
+      "model": "claude-opus-4-7",
+      "difficulty": "easy",
+      "mission_relevance": "high",
+      "category": "pim",
+      "passed": true,
+      "latency_ms": 5792,
+      "cost_usd": 0.07878,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_011. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2112,
+        "output": 628,
+        "cost_usd": 0.07878
+      }
+    },
+    {
+      "id": "eval_012",
+      "prompt": "Explain the specific mission risk posed by Diana Reyes' current access configuration.",
+      "model": "claude-opus-4-7",
+      "difficulty": "hard",
+      "mission_relevance": "high",
+      "category": "persona_analysis",
+      "passed": true,
+      "latency_ms": 8170,
+      "cost_usd": 0.199545,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_012. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3563,
+        "output": 1948,
+        "cost_usd": 0.199545
+      }
+    },
+    {
+      "id": "eval_013",
+      "prompt": "What remediation steps are needed for the svc-fusion-ingest service account?",
+      "model": "claude-opus-4-7",
+      "difficulty": "medium",
+      "mission_relevance": "medium",
+      "category": "service_accounts",
+      "passed": true,
+      "latency_ms": 7329,
+      "cost_usd": 0.13125,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_013. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 2765,
+        "output": 1197,
+        "cost_usd": 0.13125
+      }
+    },
+    {
+      "id": "eval_014",
+      "prompt": "Generate a 30/60/90 day remediation roadmap for Orion Federal's identity program.",
+      "model": "claude-opus-4-7",
+      "difficulty": "hard",
+      "mission_relevance": "high",
+      "category": "roadmap",
+      "passed": true,
+      "latency_ms": 7163,
+      "cost_usd": 0.198435,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_014. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3879,
+        "output": 1870,
+        "cost_usd": 0.198435
+      }
+    },
+    {
+      "id": "eval_015",
+      "prompt": "Which data scientists have access beyond what their current role requires, and what is the overprivilege gap?",
+      "model": "claude-opus-4-7",
+      "difficulty": "hard",
+      "mission_relevance": "high",
+      "category": "overprivilege",
+      "passed": true,
+      "latency_ms": 6629,
+      "cost_usd": 0.179865,
+      "from_cache": true,
+      "response": "[Synthetic seeded eval response for claude-opus-4-7 on eval_015. Real responses appear here when ANTHROPIC_API_KEY is configured and the eval suite is re-run from the Evals tab.]",
+      "tool_calls": [],
+      "token_usage": {
+        "input": 3966,
+        "output": 1605,
+        "cost_usd": 0.179865
+      }
+    }
+  ],
+  "note": "Synthetic seeded results illustrating the relative cost / latency / quality envelope of Haiku vs Sonnet vs Opus on the cross-cloud identity eval suite. Configure ANTHROPIC_API_KEY and re-run the eval suite from the Evals tab to overwrite this file with live results."
+}

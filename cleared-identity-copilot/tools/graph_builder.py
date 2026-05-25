@@ -42,12 +42,12 @@ def build_identity_graph(users: list[dict[str, Any]]) -> nx.DiGraph:
             graph.add_edge(user["user_id"], "AWS GovCloud", relation="accesses")
         for role in user.get("azure_roles", []):
             role_node = f"AZ::{role['role_name']}"
-            graph.add_node(role_node, node_type="role", label=role["role_name"], risk_level=scored["risk_level"])
+            graph.add_node(role_node, node_type="role", label=role["role_name"], risk_level=scored["risk_level"], cloud="Azure Gov")
             graph.add_edge(user["user_id"], role_node, relation="has_role")
             graph.add_edge(role_node, "Azure Gov", relation=role.get("assignment_type", "assigned"))
         for permission in user.get("aws_permission_sets", []):
             role_node = f"AWS::{permission['permission_set']}"
-            graph.add_node(role_node, node_type="role", label=permission["permission_set"], risk_level=scored["risk_level"])
+            graph.add_node(role_node, node_type="role", label=permission["permission_set"], risk_level=scored["risk_level"], cloud="AWS GovCloud")
             graph.add_edge(user["user_id"], role_node, relation="has_role")
             graph.add_edge(role_node, "AWS GovCloud", relation=permission.get("assignment_type", "assigned"))
         if "credential_sharing_confirmed" in user.get("risk_indicators", []):
@@ -55,8 +55,70 @@ def build_identity_graph(users: list[dict[str, Any]]) -> nx.DiGraph:
     return graph
 
 
+# Risk priority used to order users along the central column so high-risk
+# accounts sit near the top of the diagram.
+_RISK_RANK = {"CRITICAL": 0, "HIGH": 1, "MED": 2, "LOW": 3}
+
+
+def _hierarchical_layout(graph: nx.DiGraph) -> dict[str, tuple[float, float]]:
+    """Lay the graph out as three readable columns.
+
+    Left column  : Azure Gov + its roles (arrayed vertically)
+    Center column: users (ranked by risk)
+    Right column : AWS GovCloud + its roles (arrayed vertically)
+
+    This is much easier to read than a force-directed blob and immediately
+    surfaces the cross-cloud admins in the middle of the diagram.
+    """
+    positions: dict[str, tuple[float, float]] = {}
+
+    azure_roles = sorted(
+        [n for n, a in graph.nodes(data=True) if a.get("node_type") == "role" and a.get("cloud") == "Azure Gov"]
+    )
+    aws_roles = sorted(
+        [n for n, a in graph.nodes(data=True) if a.get("node_type") == "role" and a.get("cloud") == "AWS GovCloud"]
+    )
+    users = [n for n, a in graph.nodes(data=True) if a.get("node_type") == "user"]
+    users.sort(key=lambda n: (_RISK_RANK.get(graph.nodes[n].get("risk_level"), 9),
+                              -int(graph.nodes[n].get("risk_score", 0) or 0),
+                              n))
+
+    # Vertical span (centered on 0). Stretch tall so labels can breathe.
+    def vertical_positions(count: int, span: float = 10.0) -> list[float]:
+        if count <= 1:
+            return [0.0]
+        step = span / (count - 1)
+        return [span / 2 - i * step for i in range(count)]
+
+    # Place clouds high-up "anchors" on each side.
+    positions["Azure Gov"] = (-5.0, 6.5)
+    positions["AWS GovCloud"] = (5.0, 6.5)
+
+    # Azure roles cascade down the left column.
+    for y, node in zip(vertical_positions(len(azure_roles), span=11.0), azure_roles):
+        positions[node] = (-5.0, y - 1.0)
+
+    # AWS roles cascade down the right column.
+    for y, node in zip(vertical_positions(len(aws_roles), span=11.0), aws_roles):
+        positions[node] = (5.0, y - 1.0)
+
+    # Users sit in the middle, spread along the vertical axis.  We add a
+    # gentle horizontal jitter so dense user rows don't collide.
+    for i, (y, node) in enumerate(zip(vertical_positions(len(users), span=12.0), users)):
+        x_jitter = -0.6 if i % 2 else 0.6
+        positions[node] = (x_jitter, y)
+
+    # Any unplaced node (e.g. orphan service account targets) gets parked
+    # below the main diagram.
+    for node in graph.nodes():
+        if node not in positions:
+            positions[node] = (0.0, -7.0 - 0.4 * len(positions))
+
+    return positions
+
+
 def get_graph_data_for_plotly(graph: nx.DiGraph) -> dict[str, list[dict[str, Any]]]:
-    positions = nx.spring_layout(graph, seed=42, k=0.9)
+    positions = _hierarchical_layout(graph)
     nodes: list[dict[str, Any]] = []
     for node_id, attrs in graph.nodes(data=True):
         x, y = positions[node_id]
@@ -72,6 +134,7 @@ def get_graph_data_for_plotly(graph: nx.DiGraph) -> dict[str, list[dict[str, Any
                 "color": RISK_COLORS.get(attrs.get("risk_level", "LOW"), "#7f8c8d"),
                 "title": attrs.get("title", ""),
                 "account_type": attrs.get("account_type", ""),
+                "cloud": attrs.get("cloud", ""),
             }
         )
     edges: list[dict[str, Any]] = []
