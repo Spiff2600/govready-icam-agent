@@ -1,0 +1,376 @@
+{
+  "instance_arn": "arn:aws-us-gov:sso:::instance/ssoins-demo",
+  "users": [
+    {
+      "user_id": "USR001",
+      "name": "Marcus Webb",
+      "permission_sets": [
+        {
+          "permission_set": "AdministratorAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "gov-root"
+      ],
+      "last_console_login": "2025-02-25",
+      "risk_indicators": [
+        "cross_cloud_admin"
+      ]
+    },
+    {
+      "user_id": "USR002",
+      "name": "Diana Reyes",
+      "permission_sets": [
+        {
+          "permission_set": "AdministratorAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "gov-root"
+      ],
+      "last_console_login": "2025-02-28",
+      "risk_indicators": [
+        "cross_cloud_admin"
+      ]
+    },
+    {
+      "user_id": "USR003",
+      "name": "Kevin Holbrook",
+      "permission_sets": [
+        {
+          "permission_set": "AdministratorAccess",
+          "account_id": "123456789012",
+          "assignment_type": "eligible"
+        }
+      ],
+      "aws_accounts": [
+        "gov-root"
+      ],
+      "last_console_login": "2025-02-20",
+      "risk_indicators": [
+        "cross_cloud_admin"
+      ]
+    },
+    {
+      "user_id": "USR004",
+      "name": "Sandra Okafor",
+      "permission_sets": [
+        {
+          "permission_set": "AdministratorAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "gov-root"
+      ],
+      "last_console_login": "2025-02-16",
+      "risk_indicators": [
+        "cross_cloud_admin",
+        "emergency_access_stale"
+      ]
+    },
+    {
+      "user_id": "USR005",
+      "name": "Tyler Nguyen",
+      "permission_sets": [
+        {
+          "permission_set": "PowerUserAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "analytics"
+      ],
+      "last_console_login": "2025-02-27",
+      "risk_indicators": [
+        "cross_cloud_power"
+      ]
+    },
+    {
+      "user_id": "USR006",
+      "name": "Priya Malhotra",
+      "permission_sets": [
+        {
+          "permission_set": "PowerUserAccess",
+          "account_id": "123456789012",
+          "assignment_type": "eligible"
+        }
+      ],
+      "aws_accounts": [
+        "security"
+      ],
+      "last_console_login": "2025-02-21",
+      "risk_indicators": [
+        "cross_cloud_power"
+      ]
+    },
+    {
+      "user_id": "USR007",
+      "name": "Jamal Carter",
+      "permission_sets": [
+        {
+          "permission_set": "PowerUserAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "mission-apps"
+      ],
+      "last_console_login": "2025-02-24",
+      "risk_indicators": [
+        "weak_mfa"
+      ]
+    },
+    {
+      "user_id": "USR008",
+      "name": "Leslie Morgan",
+      "permission_sets": [
+        {
+          "permission_set": "PowerUserAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "collaboration"
+      ],
+      "last_console_login": "2025-02-23",
+      "risk_indicators": [
+        "standing_privilege"
+      ]
+    },
+    {
+      "user_id": "USR009",
+      "name": "Anitha Krishnan",
+      "permission_sets": [
+        {
+          "permission_set": "S3SageMakerAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "analytics"
+      ],
+      "last_console_login": "2025-02-18",
+      "risk_indicators": [
+        "cross_cloud_data_access"
+      ]
+    },
+    {
+      "user_id": "USR010",
+      "name": "Derek Flynn",
+      "permission_sets": [
+        {
+          "permission_set": "S3SageMakerAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "analytics"
+      ],
+      "last_console_login": "2025-02-19",
+      "risk_indicators": [
+        "cross_cloud_data_access"
+      ]
+    },
+    {
+      "user_id": "USR011",
+      "name": "Tamara Osei",
+      "permission_sets": [
+        {
+          "permission_set": "S3SageMakerAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "analytics"
+      ],
+      "last_console_login": "2025-02-26",
+      "risk_indicators": [
+        "retained_legacy_roles"
+      ]
+    },
+    {
+      "user_id": "USR012",
+      "name": "Brandon Hill",
+      "permission_sets": [
+        {
+          "permission_set": "S3SageMakerAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "analytics"
+      ],
+      "last_console_login": "2025-02-22",
+      "risk_indicators": []
+    },
+    {
+      "user_id": "USR013",
+      "name": "Fatima Al-Hassan",
+      "permission_sets": [
+        {
+          "permission_set": "BedrockS3Access",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "ai-lab"
+      ],
+      "last_console_login": "2025-02-17",
+      "risk_indicators": [
+        "weak_mfa"
+      ]
+    },
+    {
+      "user_id": "USR014",
+      "name": "Clarence Stewart",
+      "permission_sets": [
+        {
+          "permission_set": "S3ReadAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "analytics"
+      ],
+      "last_console_login": "2025-02-13",
+      "risk_indicators": []
+    },
+    {
+      "user_id": "USR015",
+      "name": "Nora Pacheco",
+      "permission_sets": [
+        {
+          "permission_set": "ReadOnlyAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "mission"
+      ],
+      "last_console_login": "2025-02-27",
+      "risk_indicators": []
+    },
+    {
+      "user_id": "USR016",
+      "name": "Omar Abdullah",
+      "permission_sets": [
+        {
+          "permission_set": "ReadOnlyAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "mission"
+      ],
+      "last_console_login": "2025-02-14",
+      "risk_indicators": []
+    },
+    {
+      "user_id": "USR017",
+      "name": "Jenny Tran",
+      "permission_sets": [
+        {
+          "permission_set": "ReadOnlyAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "mission"
+      ],
+      "last_console_login": "2025-02-26",
+      "risk_indicators": [
+        "credential_sharing_confirmed"
+      ]
+    },
+    {
+      "user_id": "USR018",
+      "name": "Paulo Ferreira",
+      "permission_sets": [
+        {
+          "permission_set": "ReadOnlyAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "mission"
+      ],
+      "last_console_login": "2025-02-22",
+      "risk_indicators": []
+    },
+    {
+      "user_id": "SVC001",
+      "name": "svc-fusion-ingest",
+      "permission_sets": [
+        {
+          "permission_set": "S3SQSFullLambda",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "mission",
+        "ingest"
+      ],
+      "last_console_login": "2025-02-15",
+      "risk_indicators": [
+        "overscoped_service_account",
+        "unowned_service_account"
+      ]
+    },
+    {
+      "user_id": "SVC002",
+      "name": "svc-report-export",
+      "permission_sets": [
+        {
+          "permission_set": "S3PutObject",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "reporting"
+      ],
+      "last_console_login": "2025-01-30",
+      "risk_indicators": [
+        "service_account_owner_departed"
+      ]
+    },
+    {
+      "user_id": "CTR001",
+      "name": "Rafael Vega",
+      "permission_sets": [
+        {
+          "permission_set": "ReadOnlyAccess",
+          "account_id": "123456789012",
+          "assignment_type": "permanent"
+        }
+      ],
+      "aws_accounts": [
+        "mission"
+      ],
+      "last_console_login": "2025-01-15",
+      "risk_indicators": [
+        "post_contract_access"
+      ]
+    }
+  ]
+}

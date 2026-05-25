@@ -1,0 +1,680 @@
+{
+  "tenant": "orion-demo.onmicrosoft.us",
+  "users": [
+    {
+      "user_id": "USR001",
+      "name": "Marcus Webb",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Identity Operations Lead",
+      "team": "Cloud Platform",
+      "azure_roles": [
+        {
+          "role_name": "Global Administrator",
+          "assignment_type": "eligible",
+          "pim_enabled": true,
+          "currently_active": false,
+          "scope": "tenant-root",
+          "approval_required": true
+        }
+      ],
+      "primary_mfa_method": "authenticator_app",
+      "mfa_methods": [
+        "authenticator_app"
+      ],
+      "joined_date": "2019-03-15",
+      "last_login": "2025-02-25",
+      "risk_indicators": [
+        "cross_cloud_admin",
+        "pim_eligible_not_activated"
+      ],
+      "notes": "Senior identity engineer with tenant-wide emergency duties. Uses PIM eligibility but still retains broad AWS standing access.",
+      "manager": "CIO Staff",
+      "department": "Enterprise IT",
+      "last_review_date": "2024-11-15"
+    },
+    {
+      "user_id": "USR002",
+      "name": "Diana Reyes",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Deputy Infrastructure Chief",
+      "team": "Enterprise Operations",
+      "azure_roles": [
+        {
+          "role_name": "Global Administrator",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "tenant-root",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "sms",
+      "mfa_methods": [
+        "sms"
+      ],
+      "joined_date": "2021-07-22",
+      "last_login": "2025-02-28",
+      "risk_indicators": [
+        "cross_cloud_admin",
+        "weak_mfa",
+        "standing_privilege"
+      ],
+      "notes": "Permanent global admin with SMS-only MFA creates a high-probability compromise path for privileged access.",
+      "manager": "CIO Staff",
+      "department": "Enterprise IT",
+      "last_review_date": "2024-08-01"
+    },
+    {
+      "user_id": "USR003",
+      "name": "Kevin Holbrook",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Privileged Access Engineer",
+      "team": "Cybersecurity Engineering",
+      "azure_roles": [
+        {
+          "role_name": "Privileged Role Administrator",
+          "assignment_type": "eligible",
+          "pim_enabled": true,
+          "currently_active": false,
+          "scope": "tenant-root",
+          "approval_required": true
+        }
+      ],
+      "primary_mfa_method": "fido2_hardware",
+      "mfa_methods": [
+        "fido2_hardware"
+      ],
+      "joined_date": "2020-01-10",
+      "last_login": "2025-02-20",
+      "risk_indicators": [
+        "cross_cloud_admin",
+        "high_privilege"
+      ],
+      "notes": "Best-administered privileged account in the estate, but cross-cloud administrator overlap still expands blast radius.",
+      "manager": "CISO Staff",
+      "department": "Security Operations",
+      "last_review_date": "2025-01-15"
+    },
+    {
+      "user_id": "USR004",
+      "name": "Sandra Okafor",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Continuity of Operations Manager",
+      "team": "Enterprise Resilience",
+      "azure_roles": [
+        {
+          "role_name": "Global Administrator",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "tenant-root",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "authenticator_app",
+      "mfa_methods": [
+        "authenticator_app"
+      ],
+      "joined_date": "2018-11-03",
+      "last_login": "2025-02-16",
+      "risk_indicators": [
+        "cross_cloud_admin",
+        "standing_privilege",
+        "emergency_access_stale"
+      ],
+      "notes": "Emergency access assignment was granted 90 days ago and never removed, leaving a break-glass style account permanently elevated.",
+      "manager": "COOP Director",
+      "department": "Enterprise IT",
+      "last_review_date": "2024-09-10"
+    },
+    {
+      "user_id": "USR005",
+      "name": "Tyler Nguyen",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Cloud Platform Engineer",
+      "team": "Platform Engineering",
+      "azure_roles": [
+        {
+          "role_name": "Privileged Role Administrator",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "tenant-root",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "authenticator_app",
+      "mfa_methods": [
+        "authenticator_app"
+      ],
+      "joined_date": "2022-04-18",
+      "last_login": "2025-02-27",
+      "risk_indicators": [
+        "standing_privilege",
+        "cross_cloud_power"
+      ],
+      "notes": "Engineer still holds standing PRA rights despite moving to a broader platform support rotation.",
+      "manager": "Platform Director",
+      "department": "Enterprise IT",
+      "last_review_date": "2024-10-18"
+    },
+    {
+      "user_id": "USR006",
+      "name": "Priya Malhotra",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Security Administrator",
+      "team": "Cyber Defense",
+      "azure_roles": [
+        {
+          "role_name": "Security Administrator",
+          "assignment_type": "eligible",
+          "pim_enabled": true,
+          "currently_active": false,
+          "scope": "security-subscription",
+          "approval_required": true
+        }
+      ],
+      "primary_mfa_method": "authenticator_app",
+      "mfa_methods": [
+        "authenticator_app",
+        "fido2_hardware"
+      ],
+      "joined_date": "2021-09-14",
+      "last_login": "2025-02-21",
+      "risk_indicators": [
+        "cross_cloud_power"
+      ],
+      "notes": "Strong MFA and PIM reduce risk, but she still bridges cloud security tooling in both environments.",
+      "manager": "SOC Manager",
+      "department": "Security Operations",
+      "last_review_date": "2025-01-20"
+    },
+    {
+      "user_id": "USR007",
+      "name": "Jamal Carter",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Application Platform Engineer",
+      "team": "Mission Apps",
+      "azure_roles": [
+        {
+          "role_name": "Application Administrator",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "enterprise-apps",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "sms",
+      "mfa_methods": [
+        "sms"
+      ],
+      "joined_date": "2023-01-05",
+      "last_login": "2025-02-24",
+      "risk_indicators": [
+        "weak_mfa"
+      ],
+      "notes": "Maintains application registrations used by mission tooling, but relies only on SMS MFA.",
+      "manager": "Mission Apps Lead",
+      "department": "Enterprise IT",
+      "last_review_date": "2024-11-30"
+    },
+    {
+      "user_id": "USR008",
+      "name": "Leslie Morgan",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Messaging Administrator",
+      "team": "Collaboration Services",
+      "azure_roles": [
+        {
+          "role_name": "Exchange Administrator",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "m365",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "authenticator_app",
+      "mfa_methods": [
+        "authenticator_app"
+      ],
+      "joined_date": "2022-07-30",
+      "last_login": "2025-02-23",
+      "risk_indicators": [
+        "standing_privilege"
+      ],
+      "notes": "Maintains GCC High mail routing; moderate risk due to standing admin scope and cross-cloud PowerUser access.",
+      "manager": "Collaboration Director",
+      "department": "Enterprise IT",
+      "last_review_date": "2024-12-12"
+    },
+    {
+      "user_id": "USR009",
+      "name": "Anitha Krishnan",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Senior Data Scientist",
+      "team": "OSINT Analytics",
+      "azure_roles": [
+        {
+          "role_name": "Contributor",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "azure-ml-workspace",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "authenticator_app",
+      "mfa_methods": [
+        "authenticator_app"
+      ],
+      "joined_date": "2021-03-22",
+      "last_login": "2025-02-18",
+      "risk_indicators": [
+        "cross_cloud_data_access"
+      ],
+      "notes": "Builds synthetic narcotics trend models and needs broad storage access, but not administrative rights.",
+      "manager": "Chief Data Scientist",
+      "department": "Mission Analytics",
+      "last_review_date": "2024-12-01"
+    },
+    {
+      "user_id": "USR010",
+      "name": "Derek Flynn",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Data Scientist",
+      "team": "OSINT Analytics",
+      "azure_roles": [
+        {
+          "role_name": "Contributor",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "azure-ml-workspace",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "authenticator_app",
+      "mfa_methods": [
+        "authenticator_app"
+      ],
+      "joined_date": "2022-06-11",
+      "last_login": "2025-02-19",
+      "risk_indicators": [
+        "cross_cloud_data_access"
+      ],
+      "notes": "Supports model retraining and dataset curation with standard data-science cloud permissions.",
+      "manager": "Chief Data Scientist",
+      "department": "Mission Analytics",
+      "last_review_date": "2024-12-18"
+    },
+    {
+      "user_id": "USR011",
+      "name": "Tamara Osei",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Data Scientist",
+      "team": "OSINT Analytics",
+      "azure_roles": [
+        {
+          "role_name": "Contributor",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "azure-ml-workspace",
+          "approval_required": false
+        },
+        {
+          "role_name": "Security Reader",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "tenant-root",
+          "approval_required": false
+        },
+        {
+          "role_name": "Threat Intelligence Contributor",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "security-subscription",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "authenticator_app",
+      "mfa_methods": [
+        "authenticator_app"
+      ],
+      "joined_date": "2020-08-15",
+      "last_login": "2025-02-26",
+      "risk_indicators": [
+        "transferred_employee",
+        "retained_legacy_roles",
+        "overprivileged_data_scientist"
+      ],
+      "notes": "Transferred from Cyber Operations six months ago but still retains legacy security intelligence roles inconsistent with current data science duties.",
+      "manager": "Chief Data Scientist",
+      "department": "Mission Analytics",
+      "last_review_date": "2024-06-01"
+    },
+    {
+      "user_id": "USR012",
+      "name": "Brandon Hill",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Junior Data Scientist",
+      "team": "OSINT Analytics",
+      "azure_roles": [
+        {
+          "role_name": "Contributor",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "azure-ml-workspace",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "fido2_hardware",
+      "mfa_methods": [
+        "fido2_hardware"
+      ],
+      "joined_date": "2023-05-01",
+      "last_login": "2025-02-22",
+      "risk_indicators": [],
+      "notes": "Newest data scientist with strongest MFA posture in the analytics cohort.",
+      "manager": "Chief Data Scientist",
+      "department": "Mission Analytics",
+      "last_review_date": "2025-01-05"
+    },
+    {
+      "user_id": "USR013",
+      "name": "Fatima Al-Hassan",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Generative AI Data Scientist",
+      "team": "Mission AI Lab",
+      "azure_roles": [
+        {
+          "role_name": "Contributor",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "azure-ml-workspace",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "sms",
+      "mfa_methods": [
+        "sms"
+      ],
+      "joined_date": "2022-11-15",
+      "last_login": "2025-02-17",
+      "risk_indicators": [
+        "weak_mfa",
+        "cross_cloud_data_access"
+      ],
+      "notes": "Works on LLM prompt tuning and has AWS Bedrock access, but still authenticates with SMS only.",
+      "manager": "AI Lab Director",
+      "department": "Mission Analytics",
+      "last_review_date": "2024-11-01"
+    },
+    {
+      "user_id": "USR014",
+      "name": "Clarence Stewart",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Data Analyst",
+      "team": "Mission Analytics Support",
+      "azure_roles": [
+        {
+          "role_name": "Reader",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "analytics-subscription",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "authenticator_app",
+      "mfa_methods": [
+        "authenticator_app"
+      ],
+      "joined_date": "2021-01-08",
+      "last_login": "2025-02-13",
+      "risk_indicators": [],
+      "notes": "Read-only analytics user with limited Azure scope and narrow AWS S3 access.",
+      "manager": "Analytics Support Lead",
+      "department": "Mission Analytics",
+      "last_review_date": "2025-01-10"
+    },
+    {
+      "user_id": "USR015",
+      "name": "Nora Pacheco",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Mission Analyst",
+      "team": "Fusion Cell",
+      "azure_roles": [
+        {
+          "role_name": "Reader",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "mission-data",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "authenticator_app",
+      "mfa_methods": [
+        "authenticator_app"
+      ],
+      "joined_date": "2023-03-15",
+      "last_login": "2025-02-27",
+      "risk_indicators": [],
+      "notes": "Consumes shared intelligence dashboards and does not require privileged access.",
+      "manager": "Fusion Cell Lead",
+      "department": "Mission Operations",
+      "last_review_date": "2025-01-12"
+    },
+    {
+      "user_id": "USR016",
+      "name": "Omar Abdullah",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Mission Analyst",
+      "team": "Fusion Cell",
+      "azure_roles": [
+        {
+          "role_name": "Reader",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "mission-data",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "authenticator_app",
+      "mfa_methods": [
+        "authenticator_app"
+      ],
+      "joined_date": "2022-09-28",
+      "last_login": "2025-02-14",
+      "risk_indicators": [],
+      "notes": "Read-only analyst supporting cross-agency case coordination.",
+      "manager": "Fusion Cell Lead",
+      "department": "Mission Operations",
+      "last_review_date": "2024-12-20"
+    },
+    {
+      "user_id": "USR017",
+      "name": "Jenny Tran",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Mission Analyst",
+      "team": "Fusion Cell",
+      "azure_roles": [
+        {
+          "role_name": "Reader",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "mission-data",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "email_otp",
+      "mfa_methods": [
+        "email_otp"
+      ],
+      "joined_date": "2024-02-01",
+      "last_login": "2025-02-26",
+      "risk_indicators": [
+        "credential_sharing_confirmed",
+        "weak_mfa"
+      ],
+      "notes": "Audit logs confirmed credential sharing with service account SVC001, violating least privilege and non-repudiation controls.",
+      "manager": "Fusion Cell Lead",
+      "department": "Mission Operations",
+      "last_review_date": "2024-07-15"
+    },
+    {
+      "user_id": "USR018",
+      "name": "Paulo Ferreira",
+      "account_type": "human",
+      "employment_type": "employee",
+      "title": "Mission Analyst",
+      "team": "Fusion Cell",
+      "azure_roles": [
+        {
+          "role_name": "Reader",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "mission-data",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "authenticator_app",
+      "mfa_methods": [
+        "authenticator_app"
+      ],
+      "joined_date": "2023-06-12",
+      "last_login": "2025-02-22",
+      "risk_indicators": [],
+      "notes": "Low-risk read-only mission analyst with standard MFA.",
+      "manager": "Fusion Cell Lead",
+      "department": "Mission Operations",
+      "last_review_date": "2024-12-22"
+    },
+    {
+      "user_id": "SVC001",
+      "name": "svc-fusion-ingest",
+      "account_type": "service",
+      "employment_type": "service_account",
+      "title": "Fusion Ingest Service Account",
+      "team": "Integration Services",
+      "azure_roles": [
+        {
+          "role_name": "Storage Contributor",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "storage-account-group",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "none",
+      "mfa_methods": [
+        "none"
+      ],
+      "joined_date": "2020-06-01",
+      "last_login": "2025-02-15",
+      "risk_indicators": [
+        "unowned_service_account",
+        "overscoped_service_account",
+        "credential_shared_with_usr017"
+      ],
+      "notes": "Massively overscoped machine identity with no owner, broad storage rights, and recent use tied to Jenny Tran.",
+      "manager": null,
+      "department": "Integration Services",
+      "last_review_date": "2024-05-01",
+      "service_account_owner": null
+    },
+    {
+      "user_id": "SVC002",
+      "name": "svc-report-export",
+      "account_type": "service",
+      "employment_type": "service_account",
+      "title": "Reporting Export Service Account",
+      "team": "Reporting Services",
+      "azure_roles": [
+        {
+          "role_name": "Blob Storage Contributor",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "reporting-storage",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "none",
+      "mfa_methods": [
+        "none"
+      ],
+      "joined_date": "2021-02-15",
+      "last_login": "2025-01-30",
+      "risk_indicators": [
+        "service_account_owner_departed"
+      ],
+      "notes": "Reasonable technical scope but ownership still points to a departed employee, leaving accountability gaps.",
+      "manager": null,
+      "department": "Reporting Services",
+      "last_review_date": "2024-09-01",
+      "service_account_owner": "Departed Employee"
+    },
+    {
+      "user_id": "CTR001",
+      "name": "Rafael Vega",
+      "account_type": "human",
+      "employment_type": "contractor",
+      "title": "Contractor Mission Support Analyst",
+      "team": "Fusion Cell",
+      "azure_roles": [
+        {
+          "role_name": "Reader",
+          "assignment_type": "permanent",
+          "pim_enabled": false,
+          "currently_active": true,
+          "scope": "mission-data",
+          "approval_required": false
+        }
+      ],
+      "primary_mfa_method": "authenticator_app",
+      "mfa_methods": [
+        "authenticator_app"
+      ],
+      "joined_date": "2024-01-15",
+      "last_login": "2025-01-15",
+      "risk_indicators": [
+        "post_contract_access",
+        "deprovisioning_failure"
+      ],
+      "notes": "Contract ended 2024-12-31 yet both Azure and AWS access remained active, with login activity after contract termination.",
+      "manager": "Contracting Officer Representative",
+      "department": "Mission Operations",
+      "last_review_date": "2024-10-01",
+      "contract_end_date": "2024-12-31"
+    }
+  ]
+}

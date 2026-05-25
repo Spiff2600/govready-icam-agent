@@ -1,3 +1,16 @@
 __pycache__/
-.pytest_cache/
 *.pyc
+*.pyo
+*.pyd
+.Python
+.env
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+*.egg
+.DS_Store
+nohup.out
