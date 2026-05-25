@@ -48,15 +48,19 @@ A rules engine can flag SMS MFA or overdue reviews, but it cannot easily connect
 ## Quickstart
 
 ```bash
-cd /home/runner/work/caib/caib
+cd /path/to/caib
 python -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r cleared-identity-copilot/requirements.txt
 cp cleared-identity-copilot/.env.example cleared-identity-copilot/.env
 streamlit run cleared-identity-copilot/app.py
 ```
 
 If `ANTHROPIC_API_KEY` is not set, the app still works and shows a realistic cached Claude analysis.
+
+## First time? Read the full guide
+
+[**📖 Getting Started Guide**](cleared-identity-copilot/GETTING_STARTED.md) — step-by-step installation, tab-by-tab tour, FAQ, and a 5-minute demo script written for any skill level.
 
 ## Project layout
 
