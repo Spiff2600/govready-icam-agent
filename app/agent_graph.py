@@ -1,9 +1,44 @@
+import re
 from typing import Dict, Any
 from .tools.entra import advise_ca_policy, audit_roles
 from .tools.kusto import summarize_signins
 
+# Matches `/plugin marketplace add owner/repo` (leading slash optional),
+# with each owner/repo segment starting and ending alphanumeric.
+PLUGIN_SEGMENT_PATTERN = r"[A-Za-z0-9](?:[A-Za-z0-9_.-]*[A-Za-z0-9])?"
+PLUGIN_MARKETPLACE_ADD_RE = re.compile(
+    rf"^/?plugin\s+marketplace\s+add\s+(?P<plugin>{PLUGIN_SEGMENT_PATTERN}/{PLUGIN_SEGMENT_PATTERN})\s*$",
+    re.IGNORECASE,
+)
+PLUGIN_INSTALL_RE = re.compile(
+    rf"^/?plugin\s+install\s+(?P<plugin>{PLUGIN_SEGMENT_PATTERN})@(?P<source>{PLUGIN_SEGMENT_PATTERN})\s*$",
+    re.IGNORECASE,
+)
+
+
+def _extract_marketplace_plugin(q: str) -> str | None:
+    """Extract a valid owner/repo plugin identifier from a marketplace add command."""
+    match = PLUGIN_MARKETPLACE_ADD_RE.match(q.strip())
+    if not match:
+        return None
+    return match.group("plugin")
+
+
+def _extract_plugin_install_target(q: str) -> tuple[str, str] | None:
+    """Extract a valid plugin@source install target from a plugin install command."""
+    match = PLUGIN_INSTALL_RE.match(q.strip())
+    if not match:
+        return None
+    return match.group("plugin"), match.group("source")
+
+
 def classify_intent(q: str) -> str:
     qs = q.lower()
+    normalized_cmd = qs.strip().lstrip("/")
+    if normalized_cmd.startswith("plugin install"):
+        return "plugin_install"
+    if normalized_cmd.startswith("plugin marketplace add"):
+        return "plugin_marketplace_add"
     if "conditional access" in qs or "mfa" in qs or "admin portal" in qs:
         return "ca_policy"
     if "role" in qs and ("eligible" in qs or "permanent" in qs or "pim" in qs):
@@ -29,6 +64,29 @@ def run_agent(question: str) -> Dict[str, Any]:
         res = summarize_signins(question)
         trace.append({"tool": "summarize_signins", "ok": True})
         answer = res
+    elif intent == "plugin_marketplace_add":
+        plugin = _extract_marketplace_plugin(question)
+        if plugin:
+            answer = {
+                "message": f"Plugin '{plugin}' added from marketplace.",
+                "plugin": {"name": plugin, "source": "marketplace", "status": "added"},
+            }
+            trace.append({"tool": "plugin_marketplace_add", "ok": True})
+        else:
+            answer = {"message": "Usage: /plugin marketplace add <owner/repo>"}
+            trace.append({"tool": "plugin_marketplace_add", "ok": False})
+    elif intent == "plugin_install":
+        target = _extract_plugin_install_target(question)
+        if target:
+            plugin, source = target
+            answer = {
+                "message": f"Plugin '{plugin}' installed from '{source}'.",
+                "plugin": {"name": plugin, "source": source, "status": "installed"},
+            }
+            trace.append({"tool": "plugin_install", "ok": True})
+        else:
+            answer = {"message": "Usage: /plugin install <plugin>@<source>"}
+            trace.append({"tool": "plugin_install", "ok": False})
     else:
         # default helpful response
         answer = {
