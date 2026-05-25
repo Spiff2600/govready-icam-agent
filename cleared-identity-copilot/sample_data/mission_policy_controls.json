@@ -1,0 +1,108 @@
+{
+  "as_of_date": "2025-03-01",
+  "frameworks": [
+    "NIST 800-53 Rev 5",
+    "CISA SCuBA",
+    "FedRAMP High",
+    "M-21-31"
+  ],
+  "controls": [
+    {
+      "control_id": "AC-2",
+      "framework": "NIST 800-53 Rev 5",
+      "title": "Account Management",
+      "required_state": "Disable accounts when personnel transfer or contract ends; assign ownership for service accounts.",
+      "current_state": "Transfer and contractor offboarding gaps exist for USR011 and CTR001; SVC001 lacks an owner.",
+      "status": "failing",
+      "related_users": [
+        "USR011",
+        "CTR001",
+        "SVC001",
+        "SVC002"
+      ]
+    },
+    {
+      "control_id": "AC-6",
+      "framework": "NIST 800-53 Rev 5",
+      "title": "Least Privilege",
+      "required_state": "Use just-in-time admin elevation and remove unnecessary standing privilege across clouds.",
+      "current_state": "Global administrators and privileged role admins still have permanent assignments; SVC001 remains overscoped.",
+      "status": "failing",
+      "related_users": [
+        "USR002",
+        "USR004",
+        "USR005",
+        "SVC001"
+      ]
+    },
+    {
+      "control_id": "IA-2",
+      "framework": "NIST 800-53 Rev 5",
+      "title": "Identification and Authentication",
+      "required_state": "Use phishing-resistant MFA for privileged and mission-critical users.",
+      "current_state": "SMS MFA remains on privileged users; email OTP and no MFA remain for mission accounts and service accounts.",
+      "status": "failing",
+      "related_users": [
+        "USR002",
+        "USR007",
+        "USR013",
+        "USR017",
+        "SVC001",
+        "SVC002"
+      ]
+    },
+    {
+      "control_id": "IA-5",
+      "framework": "NIST 800-53 Rev 5",
+      "title": "Authenticator Management",
+      "required_state": "Prevent credential sharing and ensure unique accountability for every authenticator.",
+      "current_state": "Credential sharing confirmed between USR017 and SVC001.",
+      "status": "failing",
+      "related_users": [
+        "USR017",
+        "SVC001"
+      ]
+    },
+    {
+      "control_id": "CA-7",
+      "framework": "FedRAMP High",
+      "title": "Continuous Monitoring",
+      "required_state": "Run recurring access reviews and cross-cloud telemetry correlation.",
+      "current_state": "Multiple access reviews are overdue and Azure/AWS admin visibility is siloed.",
+      "status": "partially_met",
+      "related_users": [
+        "USR001",
+        "USR002",
+        "USR004",
+        "USR011",
+        "SVC001"
+      ]
+    },
+    {
+      "control_id": "PR.AC-7",
+      "framework": "CISA SCuBA",
+      "title": "Privileged Account Protections",
+      "required_state": "Protect administrators with strong MFA and least privilege in cloud SaaS and IaaS.",
+      "current_state": "Diana Reyes still uses SMS MFA and Sandra Okafor retains stale emergency access.",
+      "status": "failing",
+      "related_users": [
+        "USR002",
+        "USR004"
+      ]
+    },
+    {
+      "control_id": "M-21-31-3.3",
+      "framework": "M-21-31",
+      "title": "Log and Review Administrative Actions",
+      "required_state": "Agencies should review admin account usage and retain evidence for review cycles.",
+      "current_state": "Audit evidence exists, but overdue reviews mean findings are not being remediated fast enough.",
+      "status": "partially_met",
+      "related_users": [
+        "USR002",
+        "USR004",
+        "USR005",
+        "USR017"
+      ]
+    }
+  ]
+}
