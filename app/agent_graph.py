@@ -10,6 +10,10 @@ PLUGIN_MARKETPLACE_ADD_RE = re.compile(
     rf"^/?plugin\s+marketplace\s+add\s+(?P<plugin>{PLUGIN_SEGMENT_PATTERN}/{PLUGIN_SEGMENT_PATTERN})\s*$",
     re.IGNORECASE,
 )
+PLUGIN_INSTALL_RE = re.compile(
+    rf"^/?plugin\s+install\s+(?P<plugin>{PLUGIN_SEGMENT_PATTERN})@(?P<source>{PLUGIN_SEGMENT_PATTERN})\s*$",
+    re.IGNORECASE,
+)
 
 
 def _extract_marketplace_plugin(q: str) -> str | None:
@@ -20,9 +24,19 @@ def _extract_marketplace_plugin(q: str) -> str | None:
     return match.group("plugin")
 
 
+def _extract_plugin_install_target(q: str) -> tuple[str, str] | None:
+    """Extract a valid plugin@source install target from a plugin install command."""
+    match = PLUGIN_INSTALL_RE.match(q.strip())
+    if not match:
+        return None
+    return match.group("plugin"), match.group("source")
+
+
 def classify_intent(q: str) -> str:
     qs = q.lower()
     normalized_cmd = qs.strip().lstrip("/")
+    if normalized_cmd.startswith("plugin install"):
+        return "plugin_install"
     if normalized_cmd.startswith("plugin marketplace add"):
         return "plugin_marketplace_add"
     if "conditional access" in qs or "mfa" in qs or "admin portal" in qs:
@@ -61,6 +75,18 @@ def run_agent(question: str) -> Dict[str, Any]:
         else:
             answer = {"message": "Usage: /plugin marketplace add <owner/repo>"}
             trace.append({"tool": "plugin_marketplace_add", "ok": False})
+    elif intent == "plugin_install":
+        target = _extract_plugin_install_target(question)
+        if target:
+            plugin, source = target
+            answer = {
+                "message": f"Plugin '{plugin}' installed from '{source}'.",
+                "plugin": {"name": plugin, "source": source, "status": "installed"},
+            }
+            trace.append({"tool": "plugin_install", "ok": True})
+        else:
+            answer = {"message": "Usage: /plugin install <plugin>@<source>"}
+            trace.append({"tool": "plugin_install", "ok": False})
     else:
         # default helpful response
         answer = {

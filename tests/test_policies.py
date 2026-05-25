@@ -39,3 +39,23 @@ def test_plugin_marketplace_add_command_accepts_valid_special_characters():
         "status": "added",
     }
     assert result["trace"] == [{"tool": "plugin_marketplace_add", "ok": True}]
+
+
+def test_plugin_install_command_installs_from_named_source():
+    result = run_agent("/plugin install andrej-karpathy-skills@karapathy-skills")
+
+    assert result["intent"] == "plugin_install"
+    assert result["plugin"] == {
+        "name": "andrej-karpathy-skills",
+        "source": "karapathy-skills",
+        "status": "installed",
+    }
+    assert result["trace"] == [{"tool": "plugin_install", "ok": True}]
+
+
+def test_plugin_install_command_requires_plugin_and_source():
+    result = run_agent("/plugin install andrej-karpathy-skills")
+
+    assert result["intent"] == "plugin_install"
+    assert result["message"] == "Usage: /plugin install <plugin>@<source>"
+    assert result["trace"] == [{"tool": "plugin_install", "ok": False}]
