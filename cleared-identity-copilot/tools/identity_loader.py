@@ -6,17 +6,39 @@ Returns typed Python objects. No external dependencies except stdlib + pathlib.
 from __future__ import annotations
 
 import json
+import logging
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "sample_data"
+LOGGER = logging.getLogger(__name__)
 
 
 def _load_json(filename: str) -> dict[str, Any]:
-    with (DATA_DIR / filename).open("r", encoding="utf-8") as handle:
-        return json.load(handle)
+    path = DATA_DIR / filename
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            payload = json.load(handle)
+            if isinstance(payload, dict):
+                return payload
+            LOGGER.warning(
+                "Sample data file %s does not contain a JSON object; found %s instead. "
+                "Using empty fallback; identity data will be unavailable until this file is fixed.",
+                path,
+                type(payload).__name__,
+            )
+            return {}
+    except FileNotFoundError:
+        LOGGER.warning("Sample data file not found: %s. Identity data will be unavailable until this file is provided.", path)
+        return {}
+    except json.JSONDecodeError:
+        LOGGER.warning("Sample data file is not valid JSON: %s. Identity data will be unavailable until this file is fixed.", path)
+        return {}
+    except OSError as exc:
+        LOGGER.warning("Unable to read sample data file %s: %s. Identity data will be unavailable while this error persists.", path, exc)
+        return {}
 
 
 @lru_cache(maxsize=1)
@@ -39,7 +61,11 @@ def _access_reviews() -> dict[str, dict[str, Any]]:
 
 @lru_cache(maxsize=1)
 def _personas_text() -> str:
-    return (DATA_DIR / "personas.md").read_text(encoding="utf-8")
+    try:
+        return (DATA_DIR / "personas.md").read_text(encoding="utf-8")
+    except OSError as exc:
+        LOGGER.warning("Unable to read personas file %s: %s", DATA_DIR / "personas.md", exc)
+        return ""
 
 
 @lru_cache(maxsize=1)

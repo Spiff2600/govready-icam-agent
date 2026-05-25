@@ -224,6 +224,15 @@ def render_customer_overview(users: list[dict[str, Any]], scored: list[dict[str,
 
 
 def render_graph_tab(users: list[dict[str, Any]], scored: list[dict[str, Any]]) -> None:
+    if not users or not scored:
+        st.info(
+            "No identity dataset is available. Add the synthetic JSON files under "
+            "`cleared-identity-copilot/sample_data/` to populate the graph: "
+            "`azure_users_roles.json`, `aws_identity_center_permission_sets.json`, "
+            "and `privileged_access_reviews.json` (optionally add `personas.md` for persona context)."
+        )
+        return
+
     scored_lookup = {item["user_id"]: item for item in scored}
     graph = build_identity_graph(users)
     graph_data = get_graph_data_for_plotly(graph)
