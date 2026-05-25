@@ -26,7 +26,7 @@ def clear_identity_loader_caches():
     _clear_caches()
 
 
-def test_load_all_users_with_missing_sample_data(monkeypatch, tmp_path: Path):
+def test_load_all_users_with_missing_files(monkeypatch, tmp_path: Path):
     monkeypatch.setattr(identity_loader, "DATA_DIR", tmp_path)
 
     users = identity_loader.load_all_users()

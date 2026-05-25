@@ -24,19 +24,20 @@ def _load_json(filename: str) -> dict[str, Any]:
             if isinstance(payload, dict):
                 return payload
             LOGGER.warning(
-                "Sample data file %s does not contain a JSON object; found %s instead. Using empty fallback.",
+                "Sample data file %s does not contain a JSON object; found %s instead. "
+                "Using empty fallback; identity data will be unavailable until this file is fixed.",
                 path,
                 type(payload).__name__,
             )
             return {}
     except FileNotFoundError:
-        LOGGER.warning("Sample data file not found: %s", path)
+        LOGGER.warning("Sample data file not found: %s. Identity data will be unavailable until this file is provided.", path)
         return {}
     except json.JSONDecodeError:
-        LOGGER.warning("Sample data file is not valid JSON: %s", path)
+        LOGGER.warning("Sample data file is not valid JSON: %s. Identity data will be unavailable until this file is fixed.", path)
         return {}
     except OSError as exc:
-        LOGGER.warning("Unable to read sample data file %s: %s", path, exc)
+        LOGGER.warning("Unable to read sample data file %s: %s. Identity data will be unavailable while this error persists.", path, exc)
         return {}
 
 

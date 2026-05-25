@@ -229,7 +229,7 @@ def render_graph_tab(users: list[dict[str, Any]], scored: list[dict[str, Any]]) 
             "No identity dataset is available. Add the synthetic JSON files under "
             "`cleared-identity-copilot/sample_data/` to populate the graph: "
             "`azure_users_roles.json`, `aws_identity_center_permission_sets.json`, "
-            "and `privileged_access_reviews.json`."
+            "and `privileged_access_reviews.json` (optionally add `personas.md` for persona context)."
         )
         return
 
