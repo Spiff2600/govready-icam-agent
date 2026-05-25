@@ -26,8 +26,9 @@ def generate_executive_brief(model: str = "claude-sonnet-4-5") -> dict[str, Any]
         "CISO findings, and prioritize 30/60/90 day actions for cross-cloud identity risk."
     )
     analysis = analyze_identity_exposure(prompt, user_context={"risk_summary": summary, "top_users": scored[:5]}, model=model)
+    top_risk_level = summary["top_risks"][0]["risk_level"] if summary.get("top_risks") else "UNKNOWN"
     cio_summary = (
-        f"Orion Federal's synthetic identity posture is {summary['top_risks'][0]['risk_level']} with {summary['critical_count']} critical accounts and "
+        f"Orion Federal's synthetic identity posture is {top_risk_level} with {summary['critical_count']} critical accounts and "
         f"{summary['high_count']} additional high-risk identities across Azure Gov and AWS GovCloud. The largest drivers are cross-cloud administrators, "
         "weak MFA on privileged users, stale access after role changes, and ungoverned service accounts. The environment is still recoverable within a quarter if privileged access is converted to just-in-time workflows and service-account ownership is enforced immediately."
     )
