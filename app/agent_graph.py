@@ -3,6 +3,8 @@ from typing import Dict, Any
 from .tools.entra import advise_ca_policy, audit_roles
 from .tools.kusto import summarize_signins
 
+# Matches `/plugin marketplace add owner/repo` (leading slash optional),
+# with each owner/repo segment starting and ending alphanumeric.
 PLUGIN_SEGMENT_PATTERN = r"[A-Za-z0-9](?:[A-Za-z0-9_.-]*[A-Za-z0-9])?"
 PLUGIN_MARKETPLACE_ADD_RE = re.compile(
     rf"^/?plugin\s+marketplace\s+add\s+(?P<plugin>{PLUGIN_SEGMENT_PATTERN}/{PLUGIN_SEGMENT_PATTERN})\s*$",
