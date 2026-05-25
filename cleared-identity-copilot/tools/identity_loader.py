@@ -23,7 +23,11 @@ def _load_json(filename: str) -> dict[str, Any]:
             payload = json.load(handle)
             if isinstance(payload, dict):
                 return payload
-            LOGGER.warning("Sample data file %s does not contain a JSON object; using empty fallback.", path)
+            LOGGER.warning(
+                "Sample data file %s does not contain a JSON object; found %s instead. Using empty fallback.",
+                path,
+                type(payload).__name__,
+            )
             return {}
     except FileNotFoundError:
         LOGGER.warning("Sample data file not found: %s", path)
