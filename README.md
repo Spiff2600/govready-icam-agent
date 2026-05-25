@@ -62,9 +62,14 @@ If `ANTHROPIC_API_KEY` is not set, the app still works and shows a realistic cac
 
 [**📖 Getting Started Guide**](cleared-identity-copilot/GETTING_STARTED.md) — step-by-step installation, tab-by-tab tour, FAQ, and a 5-minute demo script written for any skill level.
 
-## FastAPI ICAM agent (also in this repo)
+## FastAPI ICAM agent (legacy, also in this repo)
+
+> ℹ️ `app/` is an **earlier prototype** kept for historical context — it does
+> not use the Claude tool-use loop or the approval gate. The Streamlit app
+> above is the real demo. See [`app/README.md`](app/README.md) for details.
 
 ```bash
+make run-legacy   # uvicorn app.main:app --reload --port 8080
 curl -s http://127.0.0.1:8080/healthz
 curl -s -X POST http://127.0.0.1:8080/v1/ask -H "Content-Type: application/json" -d '{"question":"List permanent vs eligible role assignments and recommend least-privilege fixes."}' | jq .
 curl -s -X POST http://127.0.0.1:8080/chat -H "Content-Type: application/json" -d '{"message":"Summarize top ICAM risk themes this week."}' | jq .

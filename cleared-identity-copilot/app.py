@@ -79,8 +79,8 @@ def build_graph_figure(graph_data: dict[str, Any], selected_levels: list[str], h
     allowed_ids = {node["id"] for node in nodes}
     edges = [edge for edge in graph_data["edges"] if edge["source"] in allowed_ids and edge["target"] in allowed_ids]
 
-    edge_x = []
-    edge_y = []
+    # ---- Edge trace ------------------------------------------------------
+    edge_x, edge_y = [], []
     for edge in edges:
         edge_x += [edge["source_x"], edge["target_x"], None]
         edge_y += [edge["source_y"], edge["target_y"], None]
@@ -89,62 +89,99 @@ def build_graph_figure(graph_data: dict[str, Any], selected_levels: list[str], h
         x=edge_x,
         y=edge_y,
         mode="lines",
-        line=dict(width=1, color="#95a5a6"),
+        line=dict(width=1.1, color="rgba(127,140,141,0.55)"),
         hoverinfo="none",
         showlegend=False,
     )
 
-    node_x, node_y, node_text, node_color, node_size = [], [], [], [], []
+    # ---- Node traces (one per node_type so the legend reads cleanly) -----
+    by_type: dict[str, list[dict[str, Any]]] = {"cloud": [], "role": [], "user": []}
     for node in nodes:
-        score = node.get("risk_score", 10)
-        user_summary = scored_lookup.get(node["id"], {})
-        is_cross = "Administrative or sensitive access spans Azure Gov and AWS GovCloud." in user_summary.get("factors", [])
-        color = "#2c3e50" if node["node_type"] != "user" else node["color"]
-        if highlight_cross_cloud and node["node_type"] == "user" and is_cross:
-            color = "#8e44ad"
-        node_x.append(node["x"])
-        node_y.append(node["y"])
-        node_color.append(color)
-        node_size.append(18 if node["node_type"] != "user" else max(20, 12 + score * 0.35))
-        node_text.append(
-            f"<b>{node['label']}</b><br>Type: {node['node_type']}<br>Risk: {node.get('risk_level', 'LOW')}<br>Score: {score}<br>{node.get('title', '')}"
-        )
+        by_type.setdefault(node["node_type"], []).append(node)
 
-    node_trace = go.Scatter(
-        x=node_x,
-        y=node_y,
-        mode="markers",
-        marker=dict(size=node_size, color=node_color, line=dict(width=1, color="#34495e")),
-        text=node_text,
-        hovertemplate="%{text}<extra></extra>",
-        showlegend=False,
-    )
-
-    annotations = []
-    for edge in edges[:120]:
-        annotations.append(
-            dict(
-                x=(edge["source_x"] + edge["target_x"]) / 2,
-                y=(edge["source_y"] + edge["target_y"]) / 2,
-                text=edge["relation"],
-                showarrow=False,
-                font=dict(size=9, color="#7f8c8d"),
+    def _make_trace(items: list[dict[str, Any]], legend_name: str, default_color: str, default_size: int, symbol: str, text_position: str, show_text: bool = True) -> go.Scatter:
+        xs, ys, texts, hovers, colors, sizes, line_widths, line_colors = [], [], [], [], [], [], [], []
+        for node in items:
+            score = node.get("risk_score", 10)
+            user_summary = scored_lookup.get(node["id"], {})
+            is_cross = "Administrative or sensitive access spans Azure Gov and AWS GovCloud." in user_summary.get("factors", [])
+            if node["node_type"] == "user":
+                color = node["color"]
+                if highlight_cross_cloud and is_cross:
+                    color = "#8e44ad"
+                size = max(26, 16 + score * 0.40)
+                line_w, line_c = (2.5, "#2c3e50") if is_cross and highlight_cross_cloud else (1.5, "#34495e")
+            else:
+                color = default_color
+                size = default_size
+                line_w, line_c = 1.5, "#2c3e50"
+            xs.append(node["x"])
+            ys.append(node["y"])
+            colors.append(color)
+            sizes.append(size)
+            line_widths.append(line_w)
+            line_colors.append(line_c)
+            label = node["label"]
+            if node["node_type"] == "role":
+                # Strip the AZ::/AWS:: prefix for readability — the column already shows the cloud.
+                label = label
+            texts.append(label)
+            hovers.append(
+                f"<b>{node['label']}</b><br>"
+                f"Type: {node['node_type']}<br>"
+                f"Risk: {node.get('risk_level', 'LOW')}<br>"
+                f"Score: {score}"
+                + (f"<br>{node['title']}" if node.get("title") else "")
+                + (f"<br>Cross-cloud admin" if is_cross else "")
             )
+        return go.Scatter(
+            x=xs,
+            y=ys,
+            mode="markers+text" if show_text else "markers",
+            marker=dict(size=sizes, color=colors, line=dict(width=line_widths, color=line_colors), symbol=symbol),
+            text=texts if show_text else None,
+            textposition=text_position,
+            textfont=dict(size=11, color="#2c3e50"),
+            hovertext=hovers,
+            hovertemplate="%{hovertext}<extra></extra>",
+            name=legend_name,
+            showlegend=True,
         )
 
-    return go.Figure(
-        data=[edge_trace, node_trace],
+    cloud_trace = _make_trace(by_type.get("cloud", []), "Cloud", "#2c3e50", 42, "square", "top center", show_text=False)
+    role_trace = _make_trace(by_type.get("role", []), "Role / Permission set", "#5d6d7e", 22, "diamond", "middle right")
+    user_trace = _make_trace(by_type.get("user", []), "User (sized by risk)", "#3498db", 26, "circle", "middle right")
+
+    # ---- Column headers as static annotations ----------------------------
+    header_annotations = [
+        dict(x=-5.0, y=7.6, text="<b>Azure Gov</b>", showarrow=False, font=dict(size=14, color="#2c3e50")),
+        dict(x=0.0,  y=7.6, text="<b>Identities</b>", showarrow=False, font=dict(size=14, color="#2c3e50")),
+        dict(x=5.0,  y=7.6, text="<b>AWS GovCloud</b>", showarrow=False, font=dict(size=14, color="#2c3e50")),
+    ]
+
+    figure = go.Figure(
+        data=[edge_trace, cloud_trace, role_trace, user_trace],
         layout=go.Layout(
-            title="Cross-cloud identity exposure graph",
+            title=dict(text="Cross-cloud identity exposure graph", x=0.02, font=dict(size=18, color="#2c3e50")),
             paper_bgcolor="#ffffff",
-            plot_bgcolor="#ffffff",
-            margin=dict(l=10, r=10, t=40, b=10),
-            xaxis=dict(showgrid=False, zeroline=False, visible=False),
-            yaxis=dict(showgrid=False, zeroline=False, visible=False),
-            annotations=annotations,
-            height=700,
+            plot_bgcolor="#fafbfc",
+            margin=dict(l=20, r=20, t=60, b=20),
+            xaxis=dict(showgrid=False, zeroline=False, visible=False, range=[-7.5, 7.5]),
+            yaxis=dict(showgrid=False, zeroline=False, visible=False, range=[-8.0, 8.5]),
+            annotations=header_annotations,
+            height=850,
+            legend=dict(
+                orientation="h",
+                yanchor="bottom", y=1.02,
+                xanchor="right", x=1.0,
+                bgcolor="rgba(255,255,255,0.85)",
+                bordercolor="#dfe6ee",
+                borderwidth=1,
+            ),
+            hoverlabel=dict(bgcolor="white", font_size=12),
         ),
     )
+    return figure
 
 
 def render_customer_overview(users: list[dict[str, Any]], scored: list[dict[str, Any]], summary: dict[str, Any]) -> None:
@@ -344,27 +381,76 @@ def render_technical_remediation() -> None:
     )
 
 
+def _load_cached_eval_results() -> dict[str, Any] | None:
+    """Load the seeded/persisted eval results cache, if present."""
+    cache_path = APP_DIR / "evals" / "results_cache.json"
+    if not cache_path.exists():
+        return None
+    try:
+        return json.loads(cache_path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
 def render_evals() -> None:
     prompts = load_eval_prompts()
     st.warning("Running evals makes real API calls and costs real money when an Anthropic API key is configured.")
-    st.dataframe(pd.DataFrame(prompts), use_container_width=True, hide_index=True)
+
+    with st.expander("📋 Eval prompt suite (15 prompts)", expanded=False):
+        st.dataframe(pd.DataFrame(prompts), use_container_width=True, hide_index=True)
+
     model_choice = st.selectbox("Eval model", ["Run All Models"] + MODEL_OPTIONS, index=0, key="eval_model")
     if st.button("Run Evals"):
         models = MODEL_OPTIONS if model_choice == "Run All Models" else [model_choice]
         with st.spinner("Running eval suite..."):
             st.session_state["eval_results"] = run_full_eval_suite(models=models)
-    results = st.session_state.get("eval_results")
+
+    results = st.session_state.get("eval_results") or _load_cached_eval_results()
     if not results:
+        st.info("No cached eval results found. Click **Run Evals** to populate.")
         return
+
+    if "eval_results" not in st.session_state and results.get("results"):
+        st.markdown('<div class="banner"><strong>Showing seeded synthetic eval results.</strong> Configure <code>ANTHROPIC_API_KEY</code> and click <em>Run Evals</em> to overwrite with live results.</div>', unsafe_allow_html=True)
+
     st.markdown("### Model summary")
-    st.dataframe(pd.DataFrame(results["summary"]), use_container_width=True, hide_index=True)
+    summary_df = pd.DataFrame(results["summary"])
+    st.dataframe(summary_df, use_container_width=True, hide_index=True)
+
+    # Visual comparison: pass rate vs cost vs latency.
+    if not summary_df.empty:
+        comp_cols = st.columns(3)
+        bar_pass = go.Figure(data=[go.Bar(
+            x=summary_df["model"], y=summary_df["pass_rate"],
+            marker_color=["#3498db", "#9b59b6", "#1abc9c"],
+            text=[f"{v}%" for v in summary_df["pass_rate"]], textposition="outside",
+        )])
+        bar_pass.update_layout(title="Pass rate (%)", height=320, yaxis=dict(range=[0, 110]), margin=dict(l=10, r=10, t=40, b=10))
+        comp_cols[0].plotly_chart(bar_pass, use_container_width=True)
+
+        bar_lat = go.Figure(data=[go.Bar(
+            x=summary_df["model"], y=summary_df["avg_latency_ms"],
+            marker_color=["#3498db", "#9b59b6", "#1abc9c"],
+            text=[f"{int(v)} ms" for v in summary_df["avg_latency_ms"]], textposition="outside",
+        )])
+        bar_lat.update_layout(title="Avg latency (ms)", height=320, margin=dict(l=10, r=10, t=40, b=10))
+        comp_cols[1].plotly_chart(bar_lat, use_container_width=True)
+
+        bar_cost = go.Figure(data=[go.Bar(
+            x=summary_df["model"], y=summary_df["total_cost_usd"],
+            marker_color=["#3498db", "#9b59b6", "#1abc9c"],
+            text=[f"${v:.4f}" for v in summary_df["total_cost_usd"]], textposition="outside",
+        )])
+        bar_cost.update_layout(title="Total cost (USD / full suite)", height=320, margin=dict(l=10, r=10, t=40, b=10))
+        comp_cols[2].plotly_chart(bar_cost, use_container_width=True)
+
     rows = []
     for item in results["results"]:
         rows.append({
             "Model": item["model"],
             "ID": item["id"],
             "Prompt": item["prompt"],
-            "PASS/FAIL": "PASS" if item["passed"] else "FAIL",
+            "PASS/FAIL": "✅ PASS" if item["passed"] else "❌ FAIL",
             "Latency (ms)": item["latency_ms"],
             "Cost ($)": item["cost_usd"],
             "Category": item["category"],
