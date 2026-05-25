@@ -6,12 +6,14 @@ Returns typed Python objects. No external dependencies except stdlib + pathlib.
 from __future__ import annotations
 
 import json
+import logging
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR / "sample_data"
+LOGGER = logging.getLogger(__name__)
 
 
 def _load_json(filename: str) -> dict[str, Any]:
@@ -19,8 +21,18 @@ def _load_json(filename: str) -> dict[str, Any]:
     try:
         with path.open("r", encoding="utf-8") as handle:
             payload = json.load(handle)
-            return payload if isinstance(payload, dict) else {}
-    except (FileNotFoundError, json.JSONDecodeError, OSError):
+            if isinstance(payload, dict):
+                return payload
+            LOGGER.warning("Sample data file %s did not contain a JSON object; using empty fallback.", path)
+            return {}
+    except FileNotFoundError:
+        LOGGER.warning("Sample data file not found: %s", path)
+        return {}
+    except json.JSONDecodeError:
+        LOGGER.warning("Sample data file is not valid JSON: %s", path)
+        return {}
+    except OSError as exc:
+        LOGGER.warning("Unable to read sample data file %s: %s", path, exc)
         return {}
 
 
@@ -46,7 +58,8 @@ def _access_reviews() -> dict[str, dict[str, Any]]:
 def _personas_text() -> str:
     try:
         return (DATA_DIR / "personas.md").read_text(encoding="utf-8")
-    except OSError:
+    except OSError as exc:
+        LOGGER.warning("Unable to read personas file %s: %s", DATA_DIR / "personas.md", exc)
         return ""
 
 
