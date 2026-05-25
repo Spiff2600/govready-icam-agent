@@ -3,7 +3,7 @@ from typing import Dict, Any
 from .tools.entra import advise_ca_policy, audit_roles
 from .tools.kusto import summarize_signins
 
-PLUGIN_SEGMENT_RE = r"[a-z0-9](?:[a-z0-9_.-]*[a-z0-9])?"
+PLUGIN_SEGMENT_RE = r"[A-Za-z0-9](?:[A-Za-z0-9_.-]*[A-Za-z0-9])?"
 PLUGIN_MARKETPLACE_ADD_RE = re.compile(
     rf"^/?plugin\s+marketplace\s+add\s+(?P<plugin>{PLUGIN_SEGMENT_RE}/{PLUGIN_SEGMENT_RE})\s*$",
     re.IGNORECASE,

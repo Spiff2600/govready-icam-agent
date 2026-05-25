@@ -27,3 +27,15 @@ def test_plugin_marketplace_add_command_rejects_malformed_plugin_name():
     assert result["intent"] == "plugin_marketplace_add"
     assert result["message"] == "Usage: /plugin marketplace add <owner/repo>"
     assert result["trace"] == [{"tool": "plugin_marketplace_add", "ok": False}]
+
+
+def test_plugin_marketplace_add_command_accepts_valid_special_characters():
+    result = run_agent("/plugin marketplace add owner-name/repo_name.plugin")
+
+    assert result["intent"] == "plugin_marketplace_add"
+    assert result["plugin"] == {
+        "name": "owner-name/repo_name.plugin",
+        "source": "marketplace",
+        "status": "added",
+    }
+    assert result["trace"] == [{"tool": "plugin_marketplace_add", "ok": True}]
