@@ -1,0 +1,50 @@
+{
+  "customer": {
+    "name": "Orion Federal Analytics Agency",
+    "mission": "Interagency OSINT fusion cell supporting synthetic counter-narcotics task force",
+    "classification": "SYNTHETIC DEMO - ALL DATA FICTIONAL",
+    "locations": [
+      "Tampa, FL",
+      "Charlotte, NC"
+    ],
+    "clearance_level": "TS/SCI (synthetic)",
+    "cloud_footprint": {
+      "azure_gov": {
+        "tenant": "orion-demo.onmicrosoft.us",
+        "subscriptions": 3,
+        "users": 247
+      },
+      "aws_govcloud": {
+        "account": "123456789012",
+        "region": "us-gov-west-1",
+        "users": 189
+      },
+      "saas": [
+        "Microsoft 365 GCC High",
+        "Salesforce Gov",
+        "Zoom for Government"
+      ]
+    },
+    "pain_points": [
+      "Standing privilege - admins with permanent role assignments instead of JIT",
+      "Weak MFA - SMS-based authentication on privileged accounts",
+      "Unclear admin ownership - service accounts without designated owners",
+      "Cloud silos - Azure and AWS teams operate independently with no cross-cloud visibility",
+      "Stale access - contractor and transferred employee access not remediated",
+      "Credential sharing detected in audit logs"
+    ],
+    "compliance_frameworks": [
+      "NIST 800-53 Rev 5",
+      "CISA SCuBA",
+      "M-21-31",
+      "FedRAMP High"
+    ],
+    "current_mfa_methods": {
+      "FIDO2_hardware": 4,
+      "authenticator_app": 11,
+      "sms": 3,
+      "email_otp": 1,
+      "none": 2
+    }
+  }
+}

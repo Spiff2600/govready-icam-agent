@@ -1,0 +1,173 @@
+{
+  "as_of_date": "2025-03-01",
+  "reviews": [
+    {
+      "review_id": "AR-001",
+      "user_id": "USR001",
+      "review_type": "privileged_access",
+      "last_review_date": "2024-11-15",
+      "next_due_date": "2025-02-15",
+      "status": "overdue",
+      "days_overdue": 14,
+      "flagged_items": [
+        "Eligible PIM never activated for break-glass readiness validation"
+      ]
+    },
+    {
+      "review_id": "AR-002",
+      "user_id": "USR002",
+      "review_type": "privileged_access",
+      "last_review_date": "2024-08-01",
+      "next_due_date": "2024-11-01",
+      "status": "overdue",
+      "days_overdue": 120,
+      "flagged_items": [
+        "Permanent Global Administrator",
+        "SMS-only MFA on privileged account"
+      ]
+    },
+    {
+      "review_id": "AR-003",
+      "user_id": "USR003",
+      "review_type": "privileged_access",
+      "last_review_date": "2025-01-15",
+      "next_due_date": "2025-04-15",
+      "status": "current",
+      "days_overdue": 0,
+      "flagged_items": []
+    },
+    {
+      "review_id": "AR-004",
+      "user_id": "USR004",
+      "review_type": "emergency_access",
+      "last_review_date": "2024-09-10",
+      "next_due_date": "2024-10-10",
+      "status": "overdue",
+      "days_overdue": 142,
+      "flagged_items": [
+        "Temporary emergency access older than 90 days and still active"
+      ]
+    },
+    {
+      "review_id": "AR-005",
+      "user_id": "USR005",
+      "review_type": "privileged_access",
+      "last_review_date": "2024-10-18",
+      "next_due_date": "2025-01-18",
+      "status": "overdue",
+      "days_overdue": 42,
+      "flagged_items": [
+        "Privileged Role Administrator remains permanent"
+      ]
+    },
+    {
+      "review_id": "AR-006",
+      "user_id": "USR006",
+      "review_type": "privileged_access",
+      "last_review_date": "2025-01-20",
+      "next_due_date": "2025-04-20",
+      "status": "current",
+      "days_overdue": 0,
+      "flagged_items": []
+    },
+    {
+      "review_id": "AR-007",
+      "user_id": "USR007",
+      "review_type": "application_admin",
+      "last_review_date": "2024-11-30",
+      "next_due_date": "2025-02-28",
+      "status": "due",
+      "days_overdue": 1,
+      "flagged_items": [
+        "SMS MFA should be upgraded before next privileged access attestation"
+      ]
+    },
+    {
+      "review_id": "AR-008",
+      "user_id": "USR008",
+      "review_type": "messaging_admin",
+      "last_review_date": "2024-12-12",
+      "next_due_date": "2025-03-12",
+      "status": "current",
+      "days_overdue": 0,
+      "flagged_items": []
+    },
+    {
+      "review_id": "AR-009",
+      "user_id": "USR011",
+      "review_type": "role_change_review",
+      "last_review_date": "2024-06-01",
+      "next_due_date": "2024-09-01",
+      "status": "overdue",
+      "days_overdue": 181,
+      "flagged_items": [
+        "Transfer from Cyber Operations not reflected in role removals",
+        "Legacy Security Reader and Threat Intelligence Contributor retained"
+      ]
+    },
+    {
+      "review_id": "AR-010",
+      "user_id": "USR013",
+      "review_type": "data_science_access",
+      "last_review_date": "2024-11-01",
+      "next_due_date": "2025-02-01",
+      "status": "overdue",
+      "days_overdue": 28,
+      "flagged_items": [
+        "Bedrock access acceptable but MFA upgrade required"
+      ]
+    },
+    {
+      "review_id": "AR-011",
+      "user_id": "USR017",
+      "review_type": "credential_investigation",
+      "last_review_date": "2024-07-15",
+      "next_due_date": "2024-08-15",
+      "status": "overdue",
+      "days_overdue": 198,
+      "flagged_items": [
+        "Confirmed credential sharing with SVC001",
+        "Email OTP is insufficient for mission access"
+      ]
+    },
+    {
+      "review_id": "AR-012",
+      "user_id": "SVC001",
+      "review_type": "service_account_governance",
+      "last_review_date": "2024-05-01",
+      "next_due_date": "2024-08-01",
+      "status": "overdue",
+      "days_overdue": 212,
+      "flagged_items": [
+        "No owner assigned",
+        "AWS and Azure storage permissions exceed documented ingest need",
+        "Last used by human analyst USR017"
+      ]
+    },
+    {
+      "review_id": "AR-013",
+      "user_id": "SVC002",
+      "review_type": "service_account_governance",
+      "last_review_date": "2024-09-01",
+      "next_due_date": "2024-12-01",
+      "status": "overdue",
+      "days_overdue": 90,
+      "flagged_items": [
+        "Owner of record departed the agency"
+      ]
+    },
+    {
+      "review_id": "AR-014",
+      "user_id": "CTR001",
+      "review_type": "offboarding_review",
+      "last_review_date": "2024-10-01",
+      "next_due_date": "2024-12-31",
+      "status": "failed",
+      "days_overdue": 60,
+      "flagged_items": [
+        "Contract ended but Azure and AWS accounts remain active",
+        "Observed login after contract end on 2025-01-15"
+      ]
+    }
+  ]
+}
