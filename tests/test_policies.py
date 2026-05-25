@@ -19,3 +19,11 @@ def test_plugin_marketplace_add_command_requires_owner_repo():
     assert result["intent"] == "plugin_marketplace_add"
     assert result["message"] == "Usage: /plugin marketplace add <owner/repo>"
     assert result["trace"] == [{"tool": "plugin_marketplace_add", "ok": False}]
+
+
+def test_plugin_marketplace_add_command_rejects_malformed_plugin_name():
+    result = run_agent("/plugin marketplace add ..invalid/-repo")
+
+    assert result["intent"] == "plugin_marketplace_add"
+    assert result["message"] == "Usage: /plugin marketplace add <owner/repo>"
+    assert result["trace"] == [{"tool": "plugin_marketplace_add", "ok": False}]
