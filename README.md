@@ -57,6 +57,7 @@ streamlit run cleared-identity-copilot/app.py
 ```
 
 If `ANTHROPIC_API_KEY` is not set, the app still works and shows a realistic cached Claude analysis.
+If the synthetic files under `cleared-identity-copilot/sample_data/` are missing, the app now starts in an empty-data mode so you can add data files without a startup crash.
 
 ## First time? Read the full guide
 

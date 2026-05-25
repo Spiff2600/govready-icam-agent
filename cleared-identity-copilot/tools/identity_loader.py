@@ -15,8 +15,13 @@ DATA_DIR = BASE_DIR / "sample_data"
 
 
 def _load_json(filename: str) -> dict[str, Any]:
-    with (DATA_DIR / filename).open("r", encoding="utf-8") as handle:
-        return json.load(handle)
+    path = DATA_DIR / filename
+    try:
+        with path.open("r", encoding="utf-8") as handle:
+            payload = json.load(handle)
+            return payload if isinstance(payload, dict) else {}
+    except (FileNotFoundError, json.JSONDecodeError, OSError):
+        return {}
 
 
 @lru_cache(maxsize=1)
@@ -39,7 +44,10 @@ def _access_reviews() -> dict[str, dict[str, Any]]:
 
 @lru_cache(maxsize=1)
 def _personas_text() -> str:
-    return (DATA_DIR / "personas.md").read_text(encoding="utf-8")
+    try:
+        return (DATA_DIR / "personas.md").read_text(encoding="utf-8")
+    except OSError:
+        return ""
 
 
 @lru_cache(maxsize=1)
