@@ -62,20 +62,46 @@ If `ANTHROPIC_API_KEY` is not set, the app still works and shows a realistic cac
 
 [**📖 Getting Started Guide**](cleared-identity-copilot/GETTING_STARTED.md) — step-by-step installation, tab-by-tab tour, FAQ, and a 5-minute demo script written for any skill level.
 
-## FastAPI ICAM agent (legacy, also in this repo)
+## Demo recording
 
-> ℹ️ `app/` is an **earlier prototype** kept for historical context — it does
-> not use the Claude tool-use loop or the approval gate. The Streamlit app
-> above is the real demo. See [`app/README.md`](app/README.md) for details.
+> 🎬 **Watch a 60-second walkthrough:** _add Loom / GIF link here once recorded_ — covers loading the synthetic dataset, asking a cross-cloud identity question, and the human approval gate stopping a CISO-level action before it lands.
+
+A short recording is the fastest way to evaluate this project. To record your own:
 
 ```bash
-make run-legacy   # uvicorn app.main:app --reload --port 8080
-curl -s http://127.0.0.1:8080/healthz
-curl -s -X POST http://127.0.0.1:8080/v1/ask -H "Content-Type: application/json" -d '{"question":"List permanent vs eligible role assignments and recommend least-privilege fixes."}' | jq .
-curl -s -X POST http://127.0.0.1:8080/chat -H "Content-Type: application/json" -d '{"message":"Summarize top ICAM risk themes this week."}' | jq .
+streamlit run cleared-identity-copilot/app.py
+# then capture: Dashboard → ask "Which users have Global Administrator without PIM?"
+#                       → Approval gate → Reports tab
 ```
 
-`/chat` calls Anthropic on Foundry when `ANTHROPIC_FOUNDRY_ENDPOINT` is set (optionally set `ANTHROPIC_FOUNDRY_API_KEY` and `ANTHROPIC_FOUNDRY_MODEL`).
+## Eval results at a glance
+
+The eval suite in [`cleared-identity-copilot/evals/prompts.jsonl`](cleared-identity-copilot/evals/prompts.jsonl) has **18 prompts** across 13 categories. **3 of them are intentional refusal prompts** — `eval_016` (insufficient evidence), `eval_017` (direct prompt-injection override), and `eval_018` (request to draft a phishing email) — kept in the suite to surface safety regressions, not just happy-path accuracy.
+
+Seeded results from [`evals/results_cache.json`](cleared-identity-copilot/evals/results_cache.json) (synthetic, illustrative of the cost / latency / quality envelope — re-run with `ANTHROPIC_API_KEY` for live numbers):
+
+| Model | Pass rate | Avg latency | Total cost (18 prompts) | Refusal evals passed |
+|---|---|---|---|---|
+| `claude-haiku-4-5` | 72.2 % (13/18) | ~2.2 s | ~$0.12 | 2 / 3 — partially complied with `eval_017` prompt-injection wrapper |
+| `claude-sonnet-4-5` | 94.4 % (17/18) | ~4.2 s | ~$0.46 | 3 / 3 |
+| `claude-opus-4-7` | 100.0 % (18/18) | ~7.3 s | ~$2.27 | 3 / 3 |
+
+**Why this is the interesting result:** the refusal evals make the cross-model gap quantitative — smaller models save ~95 % on cost but ship measurable injection-robustness risk. That trade-off is the kind of signal an applied AI team actually needs before picking a model in production.
+
+## What's next
+
+If this demo is extended past portfolio scope, the natural roadmap is:
+
+1. **Real connector adapters** (read-only): Microsoft Graph for Azure Gov, IAM Access Analyzer for AWS GovCloud, behind the same `TOOLS` schema so Claude's surface stays identical.
+2. **Multi-tenant data model**: replace the single Orion Federal dataset with a tenant-scoped loader so the same app can serve multiple agencies without cross-tenant leakage.
+3. **Regression evals in CI**: run the eval suite on every PR with a small fixed budget on Haiku, fail the build if pass rate drops or any refusal eval regresses.
+4. **Adversarial eval expansion**: add tool-output injection cases (where a "tool" returns attacker-controlled strings) and indirect-injection cases (where sample_data itself contains hostile content).
+5. **Approval-gate audit log**: persist every approve / reject / modify decision with the structured rationale, so the system produces a defensible compliance trail for FedRAMP / NIST 800-53 AU-* controls.
+6. **Cost-aware model routing**: a thin router that sends straightforward audits to Haiku and only escalates ambiguous or high-mission-relevance prompts to Sonnet/Opus, using the eval table above as the routing policy.
+
+## FastAPI ICAM agent (earlier prototype)
+
+`app/` is an earlier FastAPI prototype kept for history. It predates the Claude tool-use loop and the approval gate, so it is **not** the demo to evaluate — see [`app/README.md`](app/README.md) if you specifically want the legacy path. Run it with `make run-legacy`.
 
 ## Project layout
 
