@@ -3,14 +3,15 @@ from typing import Dict, Any
 from .tools.entra import advise_ca_policy, audit_roles
 from .tools.kusto import summarize_signins
 
-PLUGIN_SEGMENT_RE = r"[A-Za-z0-9](?:[A-Za-z0-9_.-]*[A-Za-z0-9])?"
+PLUGIN_SEGMENT_PATTERN = r"[A-Za-z0-9](?:[A-Za-z0-9_.-]*[A-Za-z0-9])?"
 PLUGIN_MARKETPLACE_ADD_RE = re.compile(
-    rf"^/?plugin\s+marketplace\s+add\s+(?P<plugin>{PLUGIN_SEGMENT_RE}/{PLUGIN_SEGMENT_RE})\s*$",
+    rf"^/?plugin\s+marketplace\s+add\s+(?P<plugin>{PLUGIN_SEGMENT_PATTERN}/{PLUGIN_SEGMENT_PATTERN})\s*$",
     re.IGNORECASE,
 )
 
 
 def _extract_marketplace_plugin(q: str) -> str | None:
+    """Extract a valid owner/repo plugin identifier from a marketplace add command."""
     match = PLUGIN_MARKETPLACE_ADD_RE.match(q.strip())
     if not match:
         return None
@@ -19,8 +20,8 @@ def _extract_marketplace_plugin(q: str) -> str | None:
 
 def classify_intent(q: str) -> str:
     qs = q.lower()
-    plugin_cmd = qs.strip().lstrip("/")
-    if plugin_cmd.startswith("plugin marketplace add"):
+    normalized_cmd = qs.strip().lstrip("/")
+    if normalized_cmd.startswith("plugin marketplace add"):
         return "plugin_marketplace_add"
     if "conditional access" in qs or "mfa" in qs or "admin portal" in qs:
         return "ca_policy"
