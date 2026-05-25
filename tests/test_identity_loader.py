@@ -36,10 +36,19 @@ def test_load_all_users_returns_empty_when_sample_data_is_missing(monkeypatch, t
     assert identity_loader.get_service_accounts() == []
 
 
-def test_load_all_users_handles_invalid_json_without_crashing(monkeypatch, tmp_path: Path):
-    (tmp_path / "azure_users_roles.json").write_text("{", encoding="utf-8")
+@pytest.mark.parametrize(
+    "malformed_file",
+    [
+        "azure_users_roles.json",
+        "aws_identity_center_permission_sets.json",
+        "privileged_access_reviews.json",
+    ],
+)
+def test_load_all_users_handles_single_malformed_json_file(monkeypatch, tmp_path: Path, malformed_file: str):
+    (tmp_path / "azure_users_roles.json").write_text('{"users": []}', encoding="utf-8")
     (tmp_path / "aws_identity_center_permission_sets.json").write_text('{"users": []}', encoding="utf-8")
     (tmp_path / "privileged_access_reviews.json").write_text('{"reviews": []}', encoding="utf-8")
+    (tmp_path / malformed_file).write_text("{", encoding="utf-8")
     monkeypatch.setattr(identity_loader, "DATA_DIR", tmp_path)
 
     assert identity_loader.load_all_users() == []
@@ -49,15 +58,6 @@ def test_load_all_users_handles_all_malformed_json_files(monkeypatch, tmp_path: 
     (tmp_path / "azure_users_roles.json").write_text("{", encoding="utf-8")
     (tmp_path / "aws_identity_center_permission_sets.json").write_text("{", encoding="utf-8")
     (tmp_path / "privileged_access_reviews.json").write_text("{", encoding="utf-8")
-    monkeypatch.setattr(identity_loader, "DATA_DIR", tmp_path)
-
-    assert identity_loader.load_all_users() == []
-
-
-def test_load_all_users_handles_partial_corruption_in_aws_file(monkeypatch, tmp_path: Path):
-    (tmp_path / "azure_users_roles.json").write_text('{"users": []}', encoding="utf-8")
-    (tmp_path / "aws_identity_center_permission_sets.json").write_text("{", encoding="utf-8")
-    (tmp_path / "privileged_access_reviews.json").write_text('{"reviews": []}', encoding="utf-8")
     monkeypatch.setattr(identity_loader, "DATA_DIR", tmp_path)
 
     assert identity_loader.load_all_users() == []
