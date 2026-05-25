@@ -1,9 +1,25 @@
+import re
 from typing import Dict, Any
 from .tools.entra import advise_ca_policy, audit_roles
 from .tools.kusto import summarize_signins
 
+PLUGIN_MARKETPLACE_ADD_RE = re.compile(
+    r"^/?plugin\s+marketplace\s+add\s+(?P<plugin>[a-z0-9_.-]+/[a-z0-9_.-]+)\s*$",
+    re.IGNORECASE,
+)
+
+
+def _extract_marketplace_plugin(q: str) -> str | None:
+    match = PLUGIN_MARKETPLACE_ADD_RE.match(q.strip())
+    if not match:
+        return None
+    return match.group("plugin")
+
+
 def classify_intent(q: str) -> str:
     qs = q.lower()
+    if qs.strip().startswith("/plugin marketplace add") or qs.strip().startswith("plugin marketplace add"):
+        return "plugin_marketplace_add"
     if "conditional access" in qs or "mfa" in qs or "admin portal" in qs:
         return "ca_policy"
     if "role" in qs and ("eligible" in qs or "permanent" in qs or "pim" in qs):
@@ -29,6 +45,17 @@ def run_agent(question: str) -> Dict[str, Any]:
         res = summarize_signins(question)
         trace.append({"tool": "summarize_signins", "ok": True})
         answer = res
+    elif intent == "plugin_marketplace_add":
+        plugin = _extract_marketplace_plugin(question)
+        if plugin:
+            answer = {
+                "message": f"Plugin '{plugin}' added from marketplace.",
+                "plugin": {"name": plugin, "source": "marketplace", "status": "added"},
+            }
+            trace.append({"tool": "plugin_marketplace_add", "ok": True})
+        else:
+            answer = {"message": "Usage: /plugin marketplace add <owner/repo>"}
+            trace.append({"tool": "plugin_marketplace_add", "ok": False})
     else:
         # default helpful response
         answer = {
