@@ -26,7 +26,7 @@ def clear_identity_loader_caches():
     _clear_caches()
 
 
-def test_load_all_users_returns_empty_when_sample_data_is_missing(monkeypatch, tmp_path: Path):
+def test_load_all_users_with_missing_sample_data(monkeypatch, tmp_path: Path):
     monkeypatch.setattr(identity_loader, "DATA_DIR", tmp_path)
 
     users = identity_loader.load_all_users()
@@ -44,7 +44,7 @@ def test_load_all_users_returns_empty_when_sample_data_is_missing(monkeypatch, t
         "privileged_access_reviews.json",
     ],
 )
-def test_load_all_users_handles_single_malformed_json_file(monkeypatch, tmp_path: Path, malformed_file: str):
+def test_load_all_users_with_single_malformed_file(monkeypatch, tmp_path: Path, malformed_file: str):
     (tmp_path / "azure_users_roles.json").write_text('{"users": []}', encoding="utf-8")
     (tmp_path / "aws_identity_center_permission_sets.json").write_text('{"users": []}', encoding="utf-8")
     (tmp_path / "privileged_access_reviews.json").write_text('{"reviews": []}', encoding="utf-8")
@@ -54,7 +54,7 @@ def test_load_all_users_handles_single_malformed_json_file(monkeypatch, tmp_path
     assert identity_loader.load_all_users() == []
 
 
-def test_load_all_users_handles_all_malformed_json_files(monkeypatch, tmp_path: Path):
+def test_load_all_users_with_all_malformed_files(monkeypatch, tmp_path: Path):
     (tmp_path / "azure_users_roles.json").write_text("{", encoding="utf-8")
     (tmp_path / "aws_identity_center_permission_sets.json").write_text("{", encoding="utf-8")
     (tmp_path / "privileged_access_reviews.json").write_text("{", encoding="utf-8")
